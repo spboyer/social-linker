@@ -1,25 +1,31 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    
-    <div class="parameters">
-      <label for="alias">Alias</label>
-      <input id="alias" name="alias" type="text" v-model="boundAlias" />
-      <label for="urlToShare">URL to share</label>
-      <input id="urlToShare" class="wideInput" name="urlToShare" type="text" v-model="urlToShare" />
-    </div>
+<div>
+  <h1>{{ msg }}</h1>
 
-    <p class="socialLinks">      
-      <a v-bind:href="TwitterLink" v-on:click.prevent v-clipboard:success="handleSuccess" v-clipboard:copy="TwitterLink" class="twitter"><font-awesome-icon :icon="['fab', 'twitter-square']" /></a>
-      <a v-bind:href="LinkedInLink" v-on:click.prevent v-clipboard:success="handleSuccess" v-clipboard:copy="LinkedInLink" class="linkedin"><font-awesome-icon :icon="['fab', 'linkedin']" /></a>
-      <a v-bind:href="RedditLink" v-on:click.prevent v-clipboard:success="handleSuccess" v-clipboard:copy="RedditLink" class="reddit"><font-awesome-icon :icon="['fab', 'reddit-square']" /></a>      
-    </p>
-
-    <p>
-      <h2>Link copied to clipboard</h2>
-      <a :href="TwitterLink" style="font-weight: bold;">{{TwitterLink}}</a>
-    </p>
+  <div class="parameters">
+    <label for="alias">Alias</label>
+    <input id="alias" name="alias" type="text" v-model="boundAlias" />
+    <label for="urlToShare">URL to share</label>
+    <input id="urlToShare" class="wideInput" name="urlToShare" type="text" v-model="urlToShare" />
   </div>
+
+  <p class="socialLinks">
+    <a v-bind:href="TwitterLink" v-on:click.prevent v-clipboard:success="handleSuccess" v-clipboard:copy="TwitterLink"
+      class="twitter">
+      <font-awesome-icon :icon="['fab', 'twitter-square']" /></a>
+    <a v-bind:href="LinkedInLink" v-on:click.prevent v-clipboard:success="handleSuccess" v-clipboard:copy="LinkedInLink"
+      class="linkedin">
+      <font-awesome-icon :icon="['fab', 'linkedin']" /></a>
+    <a v-bind:href="RedditLink" v-on:click.prevent v-clipboard:success="handleSuccess" v-clipboard:copy="RedditLink"
+      class="reddit">
+      <font-awesome-icon :icon="['fab', 'reddit-square']" /></a>
+  </p>
+
+  <h2>Link copied to clipboard</h2>
+  <p>
+    <a :href="TwitterLink" style="font-weight: bold">{{ TwitterLink }}</a>
+  </p>
+</div>
 </template>
 
 <script>
@@ -35,7 +41,7 @@ export default {
   },
   methods: {
     handleSuccess: function(){
-      let toast = this.$toasted.show("Copied to clipboard", { 
+      this.$toasted.show("Copied to clipboard", { 
         theme: "outline", 
         position: "top-center", 
         duration : 2000
