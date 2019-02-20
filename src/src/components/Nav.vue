@@ -20,10 +20,7 @@ Vue.component('main-navigation', {
           <router-link to="/" class="nav-link">Home</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/bootstrap" class="nav-link">Settings</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/bootstrap" class="nav-link">Styles</router-link>
+          <router-link to="/settings" class="nav-link">Settings</router-link>
         </li>
       </ul>
     </div>

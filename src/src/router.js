@@ -15,9 +15,14 @@ export default new Router({
       path: '/bootstrap',
       name: 'bootstrap',
       // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
+      // this generates a separate chunk (bootstrap.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/Bootstrap.vue')
+      component: () => import(/* webpackChunkName: "bootstrap" */ './views/Bootstrap.vue')
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: () => import(/* webpackChunkName: "settings" */ './views/Settings.vue')
     }
   ]
 })
