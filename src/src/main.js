@@ -5,8 +5,8 @@ import { faRedditSquare, faLinkedin, faTwitterSquare} from '@fortawesome/free-br
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import VueClipboard from 'vue-clipboard2'
 import Toasted from 'vue-toasted';
-
-
+import router from './router'
+import VueLocalStorage from 'vue-localstorage'
 
 library.add(faRedditSquare);
 library.add(faLinkedin);
@@ -16,7 +16,10 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.config.productionTip = false
 Vue.use(VueClipboard);
 Vue.use(Toasted);
+Vue.use(VueLocalStorage)
 
 new Vue({
-  render: h => h(App),
+  router,
+  render: h => h(App)
 }).$mount('#app')
+

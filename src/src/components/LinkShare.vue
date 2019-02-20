@@ -1,12 +1,24 @@
 <template>
   <div>
-    <h1>{{ msg }}</h1>
-
-    <div class="parameters">
-      <label for="alias">Alias</label>
-      <input id="alias" name="alias" type="text" v-model="boundAlias">
-      <label for="urlToShare">URL to share</label>
-      <input id="urlToShare" class="wideInput" name="urlToShare" type="text" v-model="urlToShare">
+    <div class="container-fluid">
+      <div class="=row">
+        <div class="col-md-auto">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="urlToShare-describe">url</span>
+            </div>
+            <input
+              id="urlToShare"
+              name="urlToShare"
+              class="form-control"
+              aria-describedby="urlToShare-describe"
+              type="text"
+              v-model="urlToShare"
+              placeholder="What would you like to share?"
+            >
+          </div>
+        </div>
+      </div>
     </div>
 
     <p class="socialLinks">
@@ -48,13 +60,9 @@
 
 <script>
 export default {
-  name: "HelloWorld",
+  name: "LinkShare",
   data: function() {
-    return { urlToShare: "", boundAlias: this.alias };
-  },
-  props: {
-    msg: String,
-    alias: String
+    return { urlToShare: "", boundAlias: this.$localStorage.get("alias") };
   },
   methods: {
     handleSuccess: function() {
@@ -111,26 +119,22 @@ function addTracking(url, event, channel, alias) {
 }
 
 function appendTrackingInfo(config, link) {
+  var tracking =
+    "WT.mc_id=" + config.event + "-" + config.channel + "-" + config.alias;
 
-    var tracking =
-      "WT.mc_id=" + config.event + "-" + config.channel + "-" + config.alias;
+  //respect or ignore currect query string
+  var separator = link.indexOf("?") > 0 ? "&" : "?";
 
-    //respect or ignore currect query string
-    var separator = link.indexOf("?") > 0 ? "&" : "?";
-
-    //respect or ignore hash
-    var hash = "";
-    var hasHash = link.indexOf("#");
-    if (hasHash != -1) {
-      hash = link.substr(hasHash);
-      link = link.replace(hash, "");
-    }
-
-
+  //respect or ignore hash
+  var hash = "";
+  var hasHash = link.indexOf("#");
+  if (hasHash != -1) {
+    hash = link.substr(hasHash);
+    link = link.replace(hash, "");
+  }
 
   return link + separator + tracking + hash;
 }
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
