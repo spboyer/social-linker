@@ -5,6 +5,7 @@ import { faRedditSquare, faLinkedin, faTwitterSquare} from '@fortawesome/free-br
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import VueClipboard from 'vue-clipboard2'
 import Toasted from 'vue-toasted';
+import router from './router'
 
 
 
@@ -18,5 +19,7 @@ Vue.use(VueClipboard);
 Vue.use(Toasted);
 
 new Vue({
-  render: h => h(App),
+  router,
+  render: h => h(App)
 }).$mount('#app')
+

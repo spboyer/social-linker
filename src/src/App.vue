@@ -1,17 +1,18 @@
 <template>
   <div id="app">
-    <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-    <LinkShare msg="Social Media Linker" alias="marouill"/>
+    <div id="nav">
+      <Nav/>
+    </div>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import LinkShare from './components/LinkShare.vue'
-
+import Nav from '@/components/Nav.vue'
 export default {
   name: 'app',
   components: {
-    LinkShare
+    Nav
   }
 }
 </script>
@@ -25,4 +26,9 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+</style>
+
+<style lang="scss">
+@import './styles/custom.scss';
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
 </style>

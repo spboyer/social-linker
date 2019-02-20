@@ -48,7 +48,7 @@
 
 <script>
 export default {
-  name: "HelloWorld",
+  name: "LinkShare",
   data: function() {
     return { urlToShare: "", boundAlias: this.alias };
   },
@@ -111,26 +111,22 @@ function addTracking(url, event, channel, alias) {
 }
 
 function appendTrackingInfo(config, link) {
+  var tracking =
+    "WT.mc_id=" + config.event + "-" + config.channel + "-" + config.alias;
 
-    var tracking =
-      "WT.mc_id=" + config.event + "-" + config.channel + "-" + config.alias;
+  //respect or ignore currect query string
+  var separator = link.indexOf("?") > 0 ? "&" : "?";
 
-    //respect or ignore currect query string
-    var separator = link.indexOf("?") > 0 ? "&" : "?";
-
-    //respect or ignore hash
-    var hash = "";
-    var hasHash = link.indexOf("#");
-    if (hasHash != -1) {
-      hash = link.substr(hasHash);
-      link = link.replace(hash, "");
-    }
-
-
+  //respect or ignore hash
+  var hash = "";
+  var hasHash = link.indexOf("#");
+  if (hasHash != -1) {
+    hash = link.substr(hasHash);
+    link = link.replace(hash, "");
+  }
 
   return link + separator + tracking + hash;
 }
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
