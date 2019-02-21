@@ -7,6 +7,8 @@ import VueClipboard from 'vue-clipboard2'
 import Toasted from 'vue-toasted';
 import router from './router'
 import VueLocalStorage from 'vue-localstorage'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
 library.add(faRedditSquare);
 library.add(faLinkedin);
@@ -22,7 +24,8 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.config.productionTip = false
 Vue.use(VueClipboard);
 Vue.use(Toasted);
-Vue.use(VueLocalStorage)
+Vue.use(VueLocalStorage);
+Vue.use(VueAxios, axios);
 
 new Vue({
   router,
