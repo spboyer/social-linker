@@ -36,7 +36,6 @@ export default {
       return this.$localStorage.get("alias");
     },
     setAlias: function() {
-      console.log(this.boundAlias);
       this.$localStorage.set("alias", this.boundAlias);
     }
   }
