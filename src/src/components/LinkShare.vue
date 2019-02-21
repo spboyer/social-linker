@@ -451,5 +451,5 @@ p.socialLnks .github {
 }
 p.socialLnks .youtube {
   color: #ff4301;
-}
+  }
 </style>
