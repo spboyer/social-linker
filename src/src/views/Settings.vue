@@ -1,5 +1,4 @@
 <template>
-
   <div class="container-fluid">
     <div class="row">
       <div class="col-6 text-left">
@@ -14,7 +13,15 @@
           <div class="input-group-prepend">
             <span class="input-group-text" id="alias-describe">Microsoft Alias</span>
           </div>
-        <input id="alias" name="alias" class="form-control" aria-describedby="alias-describe" type="text" v-model="boundAlias" v-on:input="setAlias">
+          <input
+            id="alias"
+            name="alias"
+            class="form-control"
+            aria-describedby="alias-describe"
+            type="text"
+            v-model="boundAlias"
+            v-on:input="setAlias"
+          >
         </div>
       </div>
     </div>
@@ -26,22 +33,77 @@
       </div>
     </div>
 
-      <div class="row">
-        <div class="col-2">
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="shortener">Provider</label>
-            </div>
-            <select class="custom-select" id="shortener" v-on:change="setShortenerProvider" v-model="shortenerProvider">
-              <option>none</option>
-              <option>bit.ly</option>
-              <option>cda.ms</option>
-            </select>
+    <!-- select provider -->
+    <div class="row">
+      <div class="col-2">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="shortener">Provider</label>
           </div>
+          <select
+            class="custom-select"
+            id="shortener"
+            v-on:change="setShortenerProvider"
+            v-model="shortenerProvider"
+          >
+            <option>none</option>
+            <option>bit.ly</option>
+            <option>cda.ms</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- provider settings -->
+      <!-- bit.ly -->
+      <div class="col-3" v-if="hideConfig('bit.ly')">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="bitly-api-key-describe">API Key</span>
+          </div>
+          <input
+            id="bitly-api-key"
+            name="bitly-api-key"
+            class="form-control"
+            aria-describedby="bitly-api-key-describe"
+            type="password"
+            v-model="shortApiKey"
+            v-on:input="setShortApiKey"
+          >
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="bitly-username-describe">Username</span>
+          </div>
+          <input
+            id="bitly-username"
+            name="bitly-username"
+            class="form-control"
+            aria-describedby="bitly-username-describe"
+            type="text"
+            v-model="shortUsername"
+            v-on:input="setShortUsername"
+          >
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="bitly-vanity-describe">Vanity Url</span>
+          </div>
+          <input
+            id="bitly-vanity"
+            name="bitly-vanity"
+            class="form-control"
+            aria-describedby="bitly-vanity-describe"
+            type="text"
+            v-model="shortVanity"
+            v-on:input="setshortVanity"
+            placeholder="myname.me or leave blank for bit.ly"
+          >
         </div>
       </div>
     </div>
-
+  </div>
 </template>
 
 <script>
@@ -50,11 +112,17 @@ export default {
   data: function() {
     return {
       boundAlias: this.getAlias(),
-      shortenerProvider: this.getShortenerProvider()
-    }
+      shortenerProvider: this.getShortenerProvider(),
+      shortApiKey: this.getShortApiKey(),
+      shortUsername: this.getShortUsername(),
+      shortVanity: this.getShortVanity()
+    };
   },
   components: {},
   methods: {
+    hideConfig: function(option) {
+      return option === this.shortenerProvider;
+    },
     getAlias: function() {
       var val = this.$localStorage.get("alias");
       return val;
@@ -62,12 +130,33 @@ export default {
     setAlias: function() {
       this.$localStorage.set("alias", this.boundAlias);
     },
-    getShortenerProvider: function(){
+    getShortenerProvider: function() {
       var val = this.$localStorage.get("shortProvider", "none");
       return val;
     },
-    setShortenerProvider: function(){
+    setShortenerProvider: function() {
       this.$localStorage.set("shortProvider", this.shortenerProvider);
+    },
+    getShortApiKey: function() {
+      var val = this.$localStorage.get("shortApiKey", this.shortApiKey);
+      return val;
+    },
+    setShortApiKey: function() {
+      this.$localStorage.set("shortApiKey", this.shortApiKey);
+    },
+    setShortUsername: function() {
+      this.$localStorage.set("shortUsername", this.shortUsername);
+    },
+    setshortVanity: function() {
+      this.$localStorage.set("shortVanity", this.shortVanity);
+    },
+    getShortUsername: function() {
+      var val = this.$localStorage.get("shortUsername", this.shortUsername);
+      return val;
+    },
+    getShortVanity: function() {
+      var val = this.$localStorage.get("shortVanity", this.shortVanity);
+      return val;
     }
   }
 };

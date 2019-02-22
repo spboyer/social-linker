@@ -56,6 +56,7 @@
               aria-describedby="channel-code-describe"
               type="text"
               v-model="channel"
+
             >
           </div>
         </div>
@@ -233,7 +234,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-auto">Created Link: {{CreateLink}}</div>
+        <div class="col-auto">Created Link:</div>
       </div>
     </div>
   </div>
@@ -248,6 +249,13 @@ export default {
       event: "social",
       channel: "",
       urlToShare: "",
+      shortProvider: {
+        provider: this.$localStorage.get("shortProvider", "none"),
+        vanityUrl: this.$localStorage.get("shortVanity", ""),
+        apiKey: this.$localStorage.get("shortApiKey", ""),
+        username: this.$localStorage.get("shortUsername", ""),
+        axios: this.axios
+      },
       boundAlias: this.$localStorage.get("alias")
     };
   },
@@ -259,6 +267,7 @@ export default {
         duration: 2000
       });
     }
+
   },
   computed: {
     CreateLink: function() {
@@ -266,29 +275,44 @@ export default {
         this.urlToShare,
         this.event,
         this.channel,
-        this.boundAlias
+        this.boundAlias,
+        this.shortProvider
       );
     },
     TwitterLink: function() {
-      return addTracking(this.urlToShare, "twitter", "social", this.boundAlias);
+      return addTracking(
+        this.urlToShare,
+        "twitter",
+        "social",
+        this.boundAlias,
+        this.shortProvider
+      );
     },
     LinkedInLink: function() {
       return addTracking(
         this.urlToShare,
         "linkedin",
         "social",
-        this.boundAlias
+        this.boundAlias,
+        this.shortProvider
       );
     },
     RedditLink: function() {
-      return addTracking(this.urlToShare, "reddit", "social", this.boundAlias);
+      return addTracking(
+        this.urlToShare,
+        "reddit",
+        "social",
+        this.boundAlias,
+        this.shortProvider
+      );
     },
     FacebookLink: function() {
       return addTracking(
         this.urlToShare,
         "facebook",
         "social",
-        this.boundAlias
+        this.boundAlias,
+        this.shortProvider
       );
     },
     StackOverFlowLink: function() {
@@ -296,7 +320,8 @@ export default {
         this.urlToShare,
         "stackoverflow",
         "social",
-        this.boundAlias
+        this.boundAlias,
+        this.shortProvider
       );
     },
     HackerNewsLink: function() {
@@ -304,7 +329,8 @@ export default {
         this.urlToShare,
         "hackernews",
         "social",
-        this.boundAlias
+        this.boundAlias,
+        this.shortProvider
       );
     },
     AzureMediumLink: function() {
@@ -312,35 +338,44 @@ export default {
         this.urlToShare,
         "azuremedium",
         "blog",
-        this.boundAlias
+        this.boundAlias,
+        this.shortProvider
       );
     },
     MediumLink: function() {
-      return addTracking(this.urlToShare, "medium", "blog", this.boundAlias);
+      return addTracking(
+        this.urlToShare,
+        "medium",
+        "blog",
+        this.boundAlias,
+        this.shortProvider
+      );
     },
     YouTubeLink: function() {
-
       return addTracking(
         this.urlToShare,
         this.event,
         "youtube",
-        this.boundAlias
+        this.boundAlias,
+        this.shortProvider
       );
     },
     GitHubLink: function() {
-
       return addTracking(
         this.urlToShare,
         this.event,
         "github",
-        this.boundAlias
+        this.boundAlias,
+        this.shortProvider
       );
     }
   }
 };
 
-function addTracking(url, event, channel, alias) {
+function addTracking(url, event, channel, alias, shortener) {
   var baseUrl = url || "";
+  if (baseUrl === "")
+    return;
 
   var defaultDomains = [
     /(.*\.)?microsoft\.com$/,
@@ -363,7 +398,21 @@ function addTracking(url, event, channel, alias) {
   }
 
   config.domains = domains;
-  return appendTrackingInfo(config, baseUrl);
+
+  var shareUrl = appendTrackingInfo(config, baseUrl);
+
+  if (shortener.provider !== "none") {
+    switch (shortener.provider) {
+      case "bit.ly":
+        //var tinyUrl = bitlyMe(shareUrl, shortener);
+        var tinyUrl = 'bit.ly';
+        return tinyUrl;
+      case "cda.ms":
+        return shareUrl;
+    }
+  }
+
+  return shareUrl;
 }
 
 function appendTrackingInfo(config, link) {
@@ -382,6 +431,38 @@ function appendTrackingInfo(config, link) {
   }
 
   return link + separator + tracking + hash;
+}
+
+function bitlyMe(url, shortner) {
+  var bitly = '';
+  var longUrl = '';
+
+  shortner.axios
+    .get("https://api-ssl.bitly.com/v3/shorten?", {
+      params: {
+        format: "json",
+        apiKey: shortner.apiKey,
+        login: shortner.username,
+        longUrl: url
+      }
+    })
+    .then(function(response) {
+      if (response.status == 200) {
+        longUrl = response.data.data.long_url;
+        bitly = response.data.data.url;
+
+        console.log(longUrl);
+        console.log(bitly);
+
+
+        return bitly;
+      } else {
+        console.log("Yikes ERROR, status code != 200 :( ");
+      }
+    })
+    .catch(function(error) {
+      console.log("Error! " + error);
+    });
 }
 </script>
 
@@ -451,5 +532,5 @@ p.socialLnks .github {
 }
 p.socialLnks .youtube {
   color: #ff4301;
-  }
+}
 </style>
