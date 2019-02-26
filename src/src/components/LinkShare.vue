@@ -363,10 +363,37 @@ function addTracking(url, event, channel, alias) {
   }
 
   config.domains = domains;
-  return appendTrackingInfo(config, baseUrl);
+  let shouldAddTrackingInfo = false;
+
+  if(baseUrl){
+    var uri = new URL(baseUrl);
+
+    for(let i = 0; i < config.domains.length; i++){
+      let domain = config.domains[i];
+      if(uri.host.match(domain)) {
+        shouldAddTrackingInfo = true;        
+        break;
+      }
+    }
+    
+    if(shouldAddTrackingInfo) {
+      //remove locale
+      var localeRegex = /^\/\w{2}-\w{2}/g;
+      uri.pathname = uri.pathname.replace(localeRegex, '');
+      
+      baseUrl = uri.toString();   
+    } 
+  }
+
+  if(shouldAddTrackingInfo) {
+    return appendTrackingInfo(config, baseUrl);
+  }
+
+  return baseUrl;
 }
 
 function appendTrackingInfo(config, link) {
+
   var tracking =
     "WT.mc_id=" + config.event + "-" + config.channel + "-" + config.alias;
 
@@ -379,7 +406,7 @@ function appendTrackingInfo(config, link) {
   if (hasHash != -1) {
     hash = link.substr(hasHash);
     link = link.replace(hash, "");
-  }
+  }  
 
   return link + separator + tracking + hash;
 }
