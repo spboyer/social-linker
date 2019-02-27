@@ -284,10 +284,12 @@ export default {
         storage.getters.alias
       );
       var short = storage.getters.shortener();
-      console.log(short.provider);
-      if (short.provider && short.provider !== 'none') {
-        var val = bitly.shorten(this.longLink, short);
-        this.shortLink = val;
+      
+      if (short.provider) {
+        bitly.shorten(this.longLink, short).then((response) => {
+          this.shortLink = response;
+        });
+
       }
     }
   },

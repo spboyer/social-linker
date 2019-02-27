@@ -1,10 +1,9 @@
 /* eslint-disable no-console */
 import axios from 'axios'
 
-
 const bitly = {
-   shorten: async (url, shortner) => {
-    await axios
+   shorten:  (url, shortner) => {
+    return axios
       .get("https://api-ssl.bitly.com/v3/shorten?", {
         params: {
           format: "json",
@@ -20,7 +19,6 @@ const bitly = {
 
           console.log(longUrl);
           console.log(bitly);
-
 
           return bitly;
         } else {
