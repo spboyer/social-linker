@@ -65,7 +65,7 @@
         </div>
       </div>
 
-      <!--
+
       <div class="row">
         <div class="col-auto">
           <div class="card">
@@ -79,40 +79,36 @@
               </p>
               <p class="socialLinks">
                 <a
-                  v-bind:href="TwitterLink"
+                  v-bind:href="twitter"
                   v-on:click.prevent
-                  v-clipboard:success="handleSuccess"
-                  v-clipboard:copy="TwitterLink"
+
                   class="twitter"
                   title="Twitter"
                 >
                   <font-awesome-icon :icon="['fab', 'twitter-square']"/>
                 </a>
                 <a
-                  v-bind:href="LinkedInLink"
+                  v-bind:href="linkedin"
                   v-on:click.prevent
-                  v-clipboard:success="handleSuccess"
-                  v-clipboard:copy="LinkedInLink"
+
                   class="linkedin"
                   title="LinkedIn"
                 >
                   <font-awesome-icon :icon="['fab', 'linkedin']"/>
                 </a>
                 <a
-                  v-bind:href="RedditLink"
+                  v-bind:href="reddit"
                   v-on:click.prevent
-                  v-clipboard:success="handleSuccess"
-                  v-clipboard:copy="RedditLink"
+
                   class="reddit"
                   title="Reddit"
                 >
                   <font-awesome-icon :icon="['fab', 'reddit-square']"/>
                 </a>
                 <a
-                  v-bind:href="FacebookLink"
+                  v-bind:href="facebook"
                   v-on:click.prevent
-                  v-clipboard:success="handleSuccess"
-                  v-clipboard:copy="FacebookLink"
+
                   class="facebook"
                   title="Facebook"
                 >
@@ -122,10 +118,9 @@
                   />
                 </a>
                 <a
-                  v-bind:href="StackOverFlowLink"
+                  v-bind:href="stackoverflow"
                   v-on:click.prevent
-                  v-clipboard:success="handleSuccess"
-                  v-clipboard:copy="StackOverFlowLink"
+
                   class="stackoverflow"
                   title="Stack Overflow"
                 >
@@ -135,10 +130,9 @@
                   />
                 </a>
                 <a
-                  v-bind:href="HackerNewsLink"
+                  v-bind:href="hackernews"
                   v-on:click.prevent
-                  v-clipboard:success="handleSuccess"
-                  v-clipboard:copy="HackerNewsLink"
+
                   class="hackernews"
                   title="Hacker News"
                 >
@@ -164,10 +158,9 @@
               </p>
               <p class="socialLinks">
                 <a
-                  v-bind:href="AzureMediumLink"
+                  v-bind:href="azuremedium"
                   v-on:click.prevent
-                  v-clipboard:success="handleSuccess"
-                  v-clipboard:copy="AzureMediumLink"
+
                   class="azuremedium"
                   title="Azure Medium Blog"
                 >
@@ -175,10 +168,9 @@
                 </a>
 
                 <a
-                  v-bind:href="MediumLink"
+                  v-bind:href="medium"
                   v-on:click.prevent
-                  v-clipboard:success="handleSuccess"
-                  v-clipboard:copy="MediumLink"
+
                   class="medium"
                   title="Medium Blog"
                 >
@@ -201,10 +193,8 @@
               </p>
               <p class="socialLinks">
                 <a
-                  v-bind:href="YouTubeLink"
+                  v-bind:href="youtube"
                   v-on:click.prevent
-                  v-clipboard:success="handleSuccess"
-                  v-clipboard:copy="YouTubeLink"
                   class="youtube"
                   title="YouTube"
                 >
@@ -212,21 +202,19 @@
                 </a>
 
                 <a
-                  v-bind:href="GitHubLink"
+                  v-bind:href="github"
                   v-on:click.prevent
-                  v-clipboard:success="handleSuccess"
-                  v-clipboard:copy="GitHubLink"
                   class="github"
                   title="github"
                 >
-                  <font-awesome-icon :icon="['fab', 'github']" :style="{ color: '#000000' }"/>
+                  <font-awesome-icon :icon="['fab', 'github']" :style="{ color: '#000000' }" @click="github"/>
                 </a>
               </p>
             </div>
           </div>
         </div>
       </div>
-      -->
+
       <div class="row">
         <div class="col-auto text-right">
           <a v-clipboard:copy="longLink" v-clipboard:success="handleSuccess">
@@ -283,60 +271,96 @@ export default {
         storage.getters.alias
       );
       var short = storage.getters.shortener();
-      console.log(short.provider);
-      if (short.provider && short.provider !== "none") {
-        var val = bitly.shorten(this.longLink, short);
-        this.shortLink = val;
+      //console.log(short.provider);
+      if (short.provider && short.provider !== 'none') {
+        bitly.shorten(this.longLink, short).then((response) => {
+          this.shortLink = response;
+        });
       }
+    },
+    twitter() {
+      this.longLink = tracking.addTracking(
+        this.urlToShare,
+        "twitter",
+        "social",
+        storage.getters.alias
+      );
+    },
+    linkedin() {
+      this.longLink = tracking.addTracking(
+        this.urlToShare,
+        "linkedin",
+        "social",
+        storage.getters.alias
+      );
+    },
+    reddit() {
+      this.longLink = tracking.addTracking(
+        this.urlToShare,
+        "reddit",
+        "social",
+        storage.getters.alias
+      );
+    },
+    facebook() {
+      this.longLink = tracking.addTracking(
+        this.urlToShare,
+        "facebook",
+        "social",
+        storage.getters.alias
+      );
+    },
+    stackoverflow() {
+      this.longLink = tracking.addTracking(
+        this.urlToShare,
+        "stackoverflow",
+        "social",
+        storage.getters.alias
+      );
+    },
+    hackernews() {
+      this.longLink = tracking.addTracking(
+        this.urlToShare,
+        "hackernews",
+        "social",
+        storage.getters.alias
+      );
+    },
+    azuremedium() {
+      this.longLink = tracking.addTracking(
+        this.urlToShare,
+        "azuremedium",
+        "blog",
+        storage.getters.alias
+      );
+    },
+    medium() {
+      this.longLink = tracking.addTracking(
+        this.urlToShare,
+        "medium",
+        "blog",
+        storage.getters.alias
+      );
+    },
+    youtube() {
+      this.longLink = tracking.addTracking(
+        this.urlToShare,
+        "azuremedium",
+        "blog",
+        storage.getters.alias
+      );
+    },
+    github() {
+      this.shortLink = "";
+      this.longLink = tracking.addTracking(
+        this.urlToShare,
+        this.event,
+        "github",
+        storage.getters.alias
+      );
     }
   },
-  computed: {
-    // CreateLink: function() {
-    //   return addTracking(
-    //     this.urlToShare, this.event, this.channel, this.boundAlias, this.shortProvider
-    //   );
-    // },
-    // TwitterLink: function() {
-    //   return addTracking(this.urlToShare, "twitter", "social", this.boundAlias, this.shortProvider
-    //   );
-    // },
-    // LinkedInLink: function() {
-    //   return addTracking(this.urlToShare, "linkedin", "social", this.boundAlias, this.shortProvider
-    //   );
-    // },
-    // RedditLink: function() {
-    //   return addTracking(this.urlToShare, "reddit", "social", this.boundAlias, this.shortProvider
-    //   );
-    // },
-    // FacebookLink: function() {
-    //   return addTracking(this.urlToShare, "facebook", "social", this.boundAlias, this.shortProvider
-    //   );
-    // },
-    // StackOverFlowLink: function() {
-    //   return addTracking(this.urlToShare, "stackoverflow", "social", this.boundAlias, this.shortProvider
-    //   );
-    // },
-    // HackerNewsLink: function() {
-    //   return addTracking(this.urlToShare, "hackernews", "social", this.boundAlias, this.shortProvider
-    //   );
-    // },
-    // AzureMediumLink: function() {
-    //   return addTracking(this.urlToShare, "azuremedium", "blog", this.boundAlias, this.shortProvider
-    //   );
-    // },
-    // MediumLink: function() {
-    //   return addTracking(this.urlToShare, "medium", "blog", this.boundAlias, this.shortProvider
-    //   );
-    // },
-    // YouTubeLink: function() {
-    //   return addTracking(this.urlToShare, this.event, "youtube", this.boundAlias, this.shortProvider
-    //   );
-    // },
-    // GitHubLink: function() {
-    //   return addTracking(this.urlToShare, this.event, "github", this.boundAlias, this.shortProvider
-    //   );
-    // }
-  }
+  computed: {}
 };
 </script>
 
