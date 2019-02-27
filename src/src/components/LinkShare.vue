@@ -56,7 +56,6 @@
               aria-describedby="channel-code-describe"
               type="text"
               v-model="channel"
-
             >
           </div>
         </div>
@@ -66,13 +65,14 @@
             type="button"
             class="btn btn-primary"
             v-on:click.prevent
-            v-bind:click="CreateLink"
+            v-bind:click="create"
             v-clipboard:success="handleSuccess"
-            v-clipboard:copy="CreateLink"
+            v-clipboard:copy="create"
           >Create Link</button>
         </div>
       </div>
 
+      <!--
       <div class="row">
         <div class="col-auto">
           <div class="card">
@@ -233,237 +233,89 @@
           </div>
         </div>
       </div>
+      -->
       <div class="row">
-        <div class="col-auto">Created Link:</div>
+        <div class="col-auto">Created Long Link: {{ longLink }}</div>
+        <div class="col-auto">Created Short Link: {{ shortLink }}</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+/* eslint-disable no-console */
+import storage from "../modules/storage";
+
 export default {
   name: "LinkShare",
-  data: function() {
-    return {
-      copied: "",
-      event: "social",
-      channel: "",
-      urlToShare: "",
-      shortProvider: {
-        provider: this.$localStorage.get("shortProvider", "none"),
-        vanityUrl: this.$localStorage.get("shortVanity", ""),
-        apiKey: this.$localStorage.get("shortApiKey", ""),
-        username: this.$localStorage.get("shortUsername", ""),
-        axios: this.axios
-      },
-      boundAlias: this.$localStorage.get("alias")
-    };
-  },
+  data: () => ({
+    copied: "",
+    event: "social",
+    channel: "",
+    urlToShare: "",
+    shortProvider: "",
+    boundAlias: "",
+    longLink: "",
+    shortLink: ""
+  }),
   methods: {
-    handleSuccess: function() {
+    handleSuccess() {
       this.$toasted.show("Copied to clipboard", {
         theme: "outline",
         position: "top-center",
         duration: 2000
       });
-    }
-
+    },
+    create() {}
   },
   computed: {
-    CreateLink: function() {
-      return addTracking(
-        this.urlToShare,
-        this.event,
-        this.channel,
-        this.boundAlias,
-        this.shortProvider
-      );
-    },
-    TwitterLink: function() {
-      return addTracking(
-        this.urlToShare,
-        "twitter",
-        "social",
-        this.boundAlias,
-        this.shortProvider
-      );
-    },
-    LinkedInLink: function() {
-      return addTracking(
-        this.urlToShare,
-        "linkedin",
-        "social",
-        this.boundAlias,
-        this.shortProvider
-      );
-    },
-    RedditLink: function() {
-      return addTracking(
-        this.urlToShare,
-        "reddit",
-        "social",
-        this.boundAlias,
-        this.shortProvider
-      );
-    },
-    FacebookLink: function() {
-      return addTracking(
-        this.urlToShare,
-        "facebook",
-        "social",
-        this.boundAlias,
-        this.shortProvider
-      );
-    },
-    StackOverFlowLink: function() {
-      return addTracking(
-        this.urlToShare,
-        "stackoverflow",
-        "social",
-        this.boundAlias,
-        this.shortProvider
-      );
-    },
-    HackerNewsLink: function() {
-      return addTracking(
-        this.urlToShare,
-        "hackernews",
-        "social",
-        this.boundAlias,
-        this.shortProvider
-      );
-    },
-    AzureMediumLink: function() {
-      return addTracking(
-        this.urlToShare,
-        "azuremedium",
-        "blog",
-        this.boundAlias,
-        this.shortProvider
-      );
-    },
-    MediumLink: function() {
-      return addTracking(
-        this.urlToShare,
-        "medium",
-        "blog",
-        this.boundAlias,
-        this.shortProvider
-      );
-    },
-    YouTubeLink: function() {
-      return addTracking(
-        this.urlToShare,
-        this.event,
-        "youtube",
-        this.boundAlias,
-        this.shortProvider
-      );
-    },
-    GitHubLink: function() {
-      return addTracking(
-        this.urlToShare,
-        this.event,
-        "github",
-        this.boundAlias,
-        this.shortProvider
-      );
-    }
+    // CreateLink: function() {
+    //   return addTracking(
+    //     this.urlToShare, this.event, this.channel, this.boundAlias, this.shortProvider
+    //   );
+    // },
+    // TwitterLink: function() {
+    //   return addTracking(this.urlToShare, "twitter", "social", this.boundAlias, this.shortProvider
+    //   );
+    // },
+    // LinkedInLink: function() {
+    //   return addTracking(this.urlToShare, "linkedin", "social", this.boundAlias, this.shortProvider
+    //   );
+    // },
+    // RedditLink: function() {
+    //   return addTracking(this.urlToShare, "reddit", "social", this.boundAlias, this.shortProvider
+    //   );
+    // },
+    // FacebookLink: function() {
+    //   return addTracking(this.urlToShare, "facebook", "social", this.boundAlias, this.shortProvider
+    //   );
+    // },
+    // StackOverFlowLink: function() {
+    //   return addTracking(this.urlToShare, "stackoverflow", "social", this.boundAlias, this.shortProvider
+    //   );
+    // },
+    // HackerNewsLink: function() {
+    //   return addTracking(this.urlToShare, "hackernews", "social", this.boundAlias, this.shortProvider
+    //   );
+    // },
+    // AzureMediumLink: function() {
+    //   return addTracking(this.urlToShare, "azuremedium", "blog", this.boundAlias, this.shortProvider
+    //   );
+    // },
+    // MediumLink: function() {
+    //   return addTracking(this.urlToShare, "medium", "blog", this.boundAlias, this.shortProvider
+    //   );
+    // },
+    // YouTubeLink: function() {
+    //   return addTracking(this.urlToShare, this.event, "youtube", this.boundAlias, this.shortProvider
+    //   );
+    // },
+    // GitHubLink: function() {
+    //   return addTracking(this.urlToShare, this.event, "github", this.boundAlias, this.shortProvider
+    //   );
+    // }
   }
 };
-
-function addTracking(url, event, channel, alias, shortener) {
-  var baseUrl = url || "";
-  if (baseUrl === "")
-    return;
-
-  var defaultDomains = [
-    /(.*\.)?microsoft\.com$/,
-    /(.*\.)?msdn\.com$/,
-    /(.*\.)?visualstudio\.com$/,
-    "www.microsoftevents.com"
-  ];
-
-  var config = {
-    event: event,
-    channel: channel,
-    alias: alias
-  };
-
-  var domains = config.domains;
-  if (domains || Array.isArray(domains)) {
-    domains = domains.concat(defaultDomains);
-  } else {
-    domains = defaultDomains;
-  }
-
-  config.domains = domains;
-
-  var shareUrl = appendTrackingInfo(config, baseUrl);
-
-  if (shortener.provider !== "none") {
-    switch (shortener.provider) {
-      case "bit.ly":
-        //var tinyUrl = bitlyMe(shareUrl, shortener);
-        var tinyUrl = 'bit.ly';
-        return tinyUrl;
-      case "cda.ms":
-        return shareUrl;
-    }
-  }
-
-  return shareUrl;
-}
-
-function appendTrackingInfo(config, link) {
-  var tracking =
-    "WT.mc_id=" + config.event + "-" + config.channel + "-" + config.alias;
-
-  //respect or ignore currect query string
-  var separator = link.indexOf("?") > 0 ? "&" : "?";
-
-  //respect or ignore hash
-  var hash = "";
-  var hasHash = link.indexOf("#");
-  if (hasHash != -1) {
-    hash = link.substr(hasHash);
-    link = link.replace(hash, "");
-  }
-
-  return link + separator + tracking + hash;
-}
-
-function bitlyMe(url, shortner) {
-  var bitly = '';
-  var longUrl = '';
-
-  shortner.axios
-    .get("https://api-ssl.bitly.com/v3/shorten?", {
-      params: {
-        format: "json",
-        apiKey: shortner.apiKey,
-        login: shortner.username,
-        longUrl: url
-      }
-    })
-    .then(function(response) {
-      if (response.status == 200) {
-        longUrl = response.data.data.long_url;
-        bitly = response.data.data.url;
-
-        console.log(longUrl);
-        console.log(bitly);
-
-
-        return bitly;
-      } else {
-        console.log("Yikes ERROR, status code != 200 :( ");
-      }
-    })
-    .catch(function(error) {
-      console.log("Error! " + error);
-    });
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

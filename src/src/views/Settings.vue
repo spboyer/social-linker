@@ -19,7 +19,7 @@
             class="form-control"
             aria-describedby="alias-describe"
             type="text"
-            v-model="boundAlias"
+            v-model="alias"
             v-on:input="setAlias"
           >
         </div>
@@ -107,56 +107,43 @@
 </template>
 
 <script>
+import storage from '../modules/storage'
+
 export default {
   name: "settings",
-  data: function() {
-    return {
-      boundAlias: this.getAlias(),
-      shortenerProvider: this.getShortenerProvider(),
-      shortApiKey: this.getShortApiKey(),
-      shortUsername: this.getShortUsername(),
-      shortVanity: this.getShortVanity()
-    };
-  },
+  data: () => ({
+      alias: "",
+      shortenerProvider: "",
+      shortApiKey: "",
+      shortUsername: "",
+      shortVanity: ""
+  }),
   components: {},
+  created(){
+    this.alias = storage.getters.alias,
+    this.shortUsername = storage.getters.shortUsername,
+    this.shortApiKey = storage.getters.shortApiKey,
+    this.shortVanity = storage.getters.shortVanity,
+    this.shortenerProvider = storage.getters.shortenerProvider
+  },
   methods: {
     hideConfig: function(option) {
       return option === this.shortenerProvider;
     },
-    getAlias: function() {
-      var val = this.$localStorage.get("alias");
-      return val;
-    },
     setAlias: function() {
-      this.$localStorage.set("alias", this.boundAlias);
-    },
-    getShortenerProvider: function() {
-      var val = this.$localStorage.get("shortProvider", "none");
-      return val;
+      storage.actions.saveAlias(this.alias);
     },
     setShortenerProvider: function() {
-      this.$localStorage.set("shortProvider", this.shortenerProvider);
-    },
-    getShortApiKey: function() {
-      var val = this.$localStorage.get("shortApiKey", this.shortApiKey);
-      return val;
+      storage.actions.saveShortProvider(this.shortenerProvider);
     },
     setShortApiKey: function() {
-      this.$localStorage.set("shortApiKey", this.shortApiKey);
+      storage.actions.saveShortApiKey(this.shortApiKey);
     },
     setShortUsername: function() {
-      this.$localStorage.set("shortUsername", this.shortUsername);
+      storage.actions.saveShortUsername(this.shortUsername);
     },
     setshortVanity: function() {
-      this.$localStorage.set("shortVanity", this.shortVanity);
-    },
-    getShortUsername: function() {
-      var val = this.$localStorage.get("shortUsername", this.shortUsername);
-      return val;
-    },
-    getShortVanity: function() {
-      var val = this.$localStorage.get("shortVanity", this.shortVanity);
-      return val;
+      storage.actions.saveShortVanity(this.shortVanity);
     }
   }
 };
