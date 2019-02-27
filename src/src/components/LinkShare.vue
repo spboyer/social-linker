@@ -79,34 +79,34 @@
               </p>
               <p class="socialLinks">
                 <a
-                  v-bind:href="twitter"
+                  href="#"
                   v-on:click.prevent
 
                   class="twitter"
                   title="Twitter"
                 >
-                  <font-awesome-icon :icon="['fab', 'twitter-square']"/>
+                  <font-awesome-icon :icon="['fab', 'twitter-square']" @click="twitter"/>
                 </a>
                 <a
-                  v-bind:href="linkedin"
+                  href="#"
                   v-on:click.prevent
 
                   class="linkedin"
                   title="LinkedIn"
                 >
-                  <font-awesome-icon :icon="['fab', 'linkedin']"/>
+                  <font-awesome-icon :icon="['fab', 'linkedin']" @click="linkedin"/>
                 </a>
                 <a
-                  v-bind:href="reddit"
+                  href="#"
                   v-on:click.prevent
 
                   class="reddit"
                   title="Reddit"
                 >
-                  <font-awesome-icon :icon="['fab', 'reddit-square']"/>
+                  <font-awesome-icon :icon="['fab', 'reddit-square']" @click="reddit"/>
                 </a>
                 <a
-                  v-bind:href="facebook"
+                  href="#"
                   v-on:click.prevent
 
                   class="facebook"
@@ -114,11 +114,11 @@
                 >
                   <font-awesome-icon
                     :icon="['fab', 'facebook-square']"
-                    :style="{ color: '#3b5998' }"
+                    :style="{ color: '#3b5998' }" @click="facebook"
                   />
                 </a>
                 <a
-                  v-bind:href="stackoverflow"
+                  href="#"
                   v-on:click.prevent
 
                   class="stackoverflow"
@@ -126,11 +126,11 @@
                 >
                   <font-awesome-icon
                     :icon="['fab', 'stack-overflow']"
-                    :style="{ color: '#f48024' }"
+                    :style="{ color: '#f48024' }" @click="stackoverflow"
                   />
                 </a>
                 <a
-                  v-bind:href="hackernews"
+                  href="#"
                   v-on:click.prevent
 
                   class="hackernews"
@@ -138,7 +138,7 @@
                 >
                   <font-awesome-icon
                     :icon="['fab', 'hacker-news-square']"
-                    :style="{ color: '#ff6600' }"
+                    :style="{ color: '#ff6600' }" @click="hackernews"
                   />
                 </a>
               </p>
@@ -158,23 +158,23 @@
               </p>
               <p class="socialLinks">
                 <a
-                  v-bind:href="azuremedium"
+                  href="#"
                   v-on:click.prevent
 
                   class="azuremedium"
                   title="Azure Medium Blog"
                 >
-                  <font-awesome-icon :icon="['fab', 'medium']" :style="{ color: '#336699' }"/>
+                  <font-awesome-icon :icon="['fab', 'medium']" :style="{ color: '#336699' }" @click="azuremedium"/>
                 </a>
 
                 <a
-                  v-bind:href="medium"
+                  href="#"
                   v-on:click.prevent
 
                   class="medium"
                   title="Medium Blog"
                 >
-                  <font-awesome-icon :icon="['fab', 'medium']" :style="{ color: '#000000' }"/>
+                  <font-awesome-icon :icon="['fab', 'medium']" :style="{ color: '#000000' }" @click="medium"/>
                 </a>
               </p>
             </div>
@@ -193,16 +193,16 @@
               </p>
               <p class="socialLinks">
                 <a
-                  v-bind:href="youtube"
+                  href="#"
                   v-on:click.prevent
                   class="youtube"
                   title="YouTube"
                 >
-                  <font-awesome-icon :icon="['fab', 'youtube-square']" :style="{ color: 'red' }"/>
+                  <font-awesome-icon :icon="['fab', 'youtube-square']" :style="{ color: 'red' }" @click="youtube"/>
                 </a>
 
                 <a
-                  v-bind:href="github"
+                  href="#"
                   v-on:click.prevent
                   class="github"
                   title="github"
@@ -279,14 +279,23 @@ export default {
       }
     },
     twitter() {
+      this.shortLink = "";
       this.longLink = tracking.addTracking(
         this.urlToShare,
         "twitter",
         "social",
         storage.getters.alias
       );
+      var short = storage.getters.shortener();
+      //console.log(short.provider);
+      if (short.provider && short.provider !== 'none') {
+        bitly.shorten(this.longLink, short).then((response) => {
+          this.shortLink = response;
+        });
+      }
     },
     linkedin() {
+      this.shortLink = "";
       this.longLink = tracking.addTracking(
         this.urlToShare,
         "linkedin",
@@ -295,6 +304,7 @@ export default {
       );
     },
     reddit() {
+      this.shortLink = "";
       this.longLink = tracking.addTracking(
         this.urlToShare,
         "reddit",
@@ -303,6 +313,7 @@ export default {
       );
     },
     facebook() {
+      this.shortLink = "";
       this.longLink = tracking.addTracking(
         this.urlToShare,
         "facebook",
@@ -311,6 +322,7 @@ export default {
       );
     },
     stackoverflow() {
+      this.shortLink = "";
       this.longLink = tracking.addTracking(
         this.urlToShare,
         "stackoverflow",
@@ -319,6 +331,7 @@ export default {
       );
     },
     hackernews() {
+      this.shortLink = "";
       this.longLink = tracking.addTracking(
         this.urlToShare,
         "hackernews",
@@ -327,6 +340,7 @@ export default {
       );
     },
     azuremedium() {
+      this.shortLink = "";
       this.longLink = tracking.addTracking(
         this.urlToShare,
         "azuremedium",
@@ -335,6 +349,7 @@ export default {
       );
     },
     medium() {
+      this.shortLink = "";
       this.longLink = tracking.addTracking(
         this.urlToShare,
         "medium",
@@ -343,10 +358,11 @@ export default {
       );
     },
     youtube() {
+      this.shortLink = "";
       this.longLink = tracking.addTracking(
         this.urlToShare,
-        "azuremedium",
-        "blog",
+        this.event,
+        "youtube",
         storage.getters.alias
       );
     },
