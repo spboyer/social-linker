@@ -3,7 +3,15 @@ const getters = {
   shortenerProvider: localStorage.shortenerProvider,
   shortApiKey: localStorage.shortApiKey,
   shortUsername: localStorage.shortUsername,
-  shortVanity: localStorage.shortVanity
+  shortVanity: localStorage.shortVanity,
+  shortener: () => {
+    return {
+      apiKey: getters.shortApiKey,
+      username: getters.shortUsername,
+      provider: getters.shortenerProvider,
+      vanity: getters.shortVanity
+    };
+  }
 };
 
 const actions = {

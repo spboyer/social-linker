@@ -61,14 +61,7 @@
         </div>
 
         <div class="col-2">
-          <button
-            type="button"
-            class="btn btn-primary"
-            v-on:click.prevent
-            v-bind:click="create"
-            v-clipboard:success="handleSuccess"
-            v-clipboard:copy="create"
-          >Create Link</button>
+          <button type="button" class="btn btn-primary" v-on:click="create">Create Link</button>
         </div>
       </div>
 
@@ -235,16 +228,32 @@
       </div>
       -->
       <div class="row">
-        <div class="col-auto">Created Long Link: {{ longLink }}</div>
-        <div class="col-auto">Created Short Link: {{ shortLink }}</div>
+        <div class="col-auto text-right">
+          <a v-clipboard:copy="longLink" v-clipboard:success="handleSuccess">
+            <font-awesome-icon icon="copy"/>
+          </a>
+        </div>
+        <div class="col-auto text-left">{{ longLink }}</div>
+      </div>
+
+      <div class="row">
+        <div class="col-auto text-right">
+          <a v-clipboard:copy="shortLink" v-clipboard:success="handleSuccess">
+            <font-awesome-icon icon="copy"/>
+          </a>
+        </div>
+        <div class="col-auto text-left">{{ shortLink }}</div>
       </div>
     </div>
+
   </div>
 </template>
 
 <script>
 /* eslint-disable no-console */
 import storage from "../modules/storage";
+import bitly from "../modules/bitly";
+import tracking from "../modules/tracking";
 
 export default {
   name: "LinkShare",
@@ -253,12 +262,13 @@ export default {
     event: "social",
     channel: "",
     urlToShare: "",
-    shortProvider: "",
-    boundAlias: "",
     longLink: "",
     shortLink: ""
   }),
   methods: {
+    onCopy: function(e) {
+      alert("You just copied: " + e.text);
+    },
     handleSuccess() {
       this.$toasted.show("Copied to clipboard", {
         theme: "outline",
@@ -266,7 +276,20 @@ export default {
         duration: 2000
       });
     },
-    create() {}
+    create() {
+      this.longLink = tracking.addTracking(
+        this.urlToShare,
+        this.event,
+        this.channel,
+        storage.getters.alias
+      );
+      var short = storage.getters.shortener();
+      console.log(short.provider);
+      if (short.provider) {
+        var val = bitly.shorten(this.longLink, short);
+        this.shortLink = val;
+      }
+    }
   },
   computed: {
     // CreateLink: function() {
