@@ -61,16 +61,10 @@
         </div>
 
         <div class="col-2">
-          <button
-            type="button"
-            class="btn btn-primary"
-            v-on:click.prevent
-            v-bind:click="CreateLink"
-            v-clipboard:success="handleSuccess"
-            v-clipboard:copy="CreateLink"
-          >Create Link</button>
+          <button type="button" class="btn btn-primary" v-on:click="create">Create Link</button>
         </div>
       </div>
+
 
       <div class="row">
         <div class="col-auto">
@@ -85,72 +79,66 @@
               </p>
               <p class="socialLinks">
                 <a
-                  v-bind:href="TwitterLink"
+                  href="#"
                   v-on:click.prevent
-                  v-clipboard:success="handleSuccess"
-                  v-clipboard:copy="TwitterLink"
+
                   class="twitter"
                   title="Twitter"
                 >
-                  <font-awesome-icon :icon="['fab', 'twitter-square']"/>
+                  <font-awesome-icon :icon="['fab', 'twitter-square']" @click="twitter"/>
                 </a>
                 <a
-                  v-bind:href="LinkedInLink"
+                  href="#"
                   v-on:click.prevent
-                  v-clipboard:success="handleSuccess"
-                  v-clipboard:copy="LinkedInLink"
+
                   class="linkedin"
                   title="LinkedIn"
                 >
-                  <font-awesome-icon :icon="['fab', 'linkedin']"/>
+                  <font-awesome-icon :icon="['fab', 'linkedin']" @click="linkedin"/>
                 </a>
                 <a
-                  v-bind:href="RedditLink"
+                  href="#"
                   v-on:click.prevent
-                  v-clipboard:success="handleSuccess"
-                  v-clipboard:copy="RedditLink"
+
                   class="reddit"
                   title="Reddit"
                 >
-                  <font-awesome-icon :icon="['fab', 'reddit-square']"/>
+                  <font-awesome-icon :icon="['fab', 'reddit-square']" @click="reddit"/>
                 </a>
                 <a
-                  v-bind:href="FacebookLink"
+                  href="#"
                   v-on:click.prevent
-                  v-clipboard:success="handleSuccess"
-                  v-clipboard:copy="FacebookLink"
+
                   class="facebook"
                   title="Facebook"
                 >
                   <font-awesome-icon
                     :icon="['fab', 'facebook-square']"
-                    :style="{ color: '#3b5998' }"
+                    :style="{ color: '#3b5998' }" @click="facebook"
                   />
                 </a>
                 <a
-                  v-bind:href="StackOverFlowLink"
+                  href="#"
                   v-on:click.prevent
-                  v-clipboard:success="handleSuccess"
-                  v-clipboard:copy="StackOverFlowLink"
+
                   class="stackoverflow"
                   title="Stack Overflow"
                 >
                   <font-awesome-icon
                     :icon="['fab', 'stack-overflow']"
-                    :style="{ color: '#f48024' }"
+                    :style="{ color: '#f48024' }" @click="stackoverflow"
                   />
                 </a>
                 <a
-                  v-bind:href="HackerNewsLink"
+                  href="#"
                   v-on:click.prevent
-                  v-clipboard:success="handleSuccess"
-                  v-clipboard:copy="HackerNewsLink"
+
                   class="hackernews"
                   title="Hacker News"
                 >
                   <font-awesome-icon
                     :icon="['fab', 'hacker-news-square']"
-                    :style="{ color: '#ff6600' }"
+                    :style="{ color: '#ff6600' }" @click="hackernews"
                   />
                 </a>
               </p>
@@ -170,25 +158,23 @@
               </p>
               <p class="socialLinks">
                 <a
-                  v-bind:href="AzureMediumLink"
+                  href="#"
                   v-on:click.prevent
-                  v-clipboard:success="handleSuccess"
-                  v-clipboard:copy="AzureMediumLink"
+
                   class="azuremedium"
                   title="Azure Medium Blog"
                 >
-                  <font-awesome-icon :icon="['fab', 'medium']" :style="{ color: '#336699' }"/>
+                  <font-awesome-icon :icon="['fab', 'medium']" :style="{ color: '#336699' }" @click="azuremedium"/>
                 </a>
 
                 <a
-                  v-bind:href="MediumLink"
+                  href="#"
                   v-on:click.prevent
-                  v-clipboard:success="handleSuccess"
-                  v-clipboard:copy="MediumLink"
+
                   class="medium"
                   title="Medium Blog"
                 >
-                  <font-awesome-icon :icon="['fab', 'medium']" :style="{ color: '#000000' }"/>
+                  <font-awesome-icon :icon="['fab', 'medium']" :style="{ color: '#000000' }" @click="medium"/>
                 </a>
               </p>
             </div>
@@ -207,209 +193,192 @@
               </p>
               <p class="socialLinks">
                 <a
-                  v-bind:href="YouTubeLink"
+                  href="#"
                   v-on:click.prevent
-                  v-clipboard:success="handleSuccess"
-                  v-clipboard:copy="YouTubeLink"
                   class="youtube"
                   title="YouTube"
                 >
-                  <font-awesome-icon :icon="['fab', 'youtube-square']" :style="{ color: 'red' }"/>
+                  <font-awesome-icon :icon="['fab', 'youtube-square']" :style="{ color: 'red' }" @click="youtube"/>
                 </a>
 
                 <a
-                  v-bind:href="GitHubLink"
+                  href="#"
                   v-on:click.prevent
-                  v-clipboard:success="handleSuccess"
-                  v-clipboard:copy="GitHubLink"
                   class="github"
                   title="github"
                 >
-                  <font-awesome-icon :icon="['fab', 'github']" :style="{ color: '#000000' }"/>
+                  <font-awesome-icon :icon="['fab', 'github']" :style="{ color: '#000000' }" @click="github"/>
                 </a>
               </p>
             </div>
           </div>
         </div>
       </div>
+
       <div class="row">
-        <div class="col-auto">Created Link: {{CreateLink}}</div>
+        <div class="col-auto text-right">
+          <a v-clipboard:copy="longLink" v-clipboard:success="handleSuccess">
+            <font-awesome-icon icon="copy"/>
+          </a>
+        </div>
+        <div class="col-auto text-left">{{ longLink }}</div>
+      </div>
+
+      <div class="row">
+        <div class="col-auto text-right">
+          <a v-clipboard:copy="shortLink" v-clipboard:success="handleSuccess">
+            <font-awesome-icon icon="copy"/>
+          </a>
+        </div>
+        <div class="col-auto text-left">{{ shortLink }}</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+/* eslint-disable no-console */
+import storage from "../modules/storage";
+import bitly from "../modules/bitly";
+import tracking from "../modules/tracking";
+
 export default {
   name: "LinkShare",
-  data: function() {
-    return {
-      copied: "",
-      event: "social",
-      channel: "",
-      urlToShare: "",
-      boundAlias: this.$localStorage.get("alias")
-    };
-  },
+  data: () => ({
+    copied: "",
+    event: "social",
+    channel: "",
+    urlToShare: "",
+    longLink: "",
+    shortLink: ""
+  }),
   methods: {
-    handleSuccess: function() {
+    onCopy: function(e) {
+      alert("You just copied: " + e.text);
+    },
+    handleSuccess() {
       this.$toasted.show("Copied to clipboard", {
         theme: "outline",
         position: "top-center",
         duration: 2000
       });
-    }
-  },
-  computed: {
-    CreateLink: function() {
-      return addTracking(
+    },
+    create() {
+      this.longLink = tracking.addTracking(
         this.urlToShare,
         this.event,
         this.channel,
-        this.boundAlias
+        storage.getters.alias
       );
+      var short = storage.getters.shortener();
+      //console.log(short.provider);
+      if (short.provider && short.provider !== 'none') {
+        bitly.shorten(this.longLink, short).then((response) => {
+          this.shortLink = response;
+        });
+      }
     },
-    TwitterLink: function() {
-      return addTracking(this.urlToShare, "twitter", "social", this.boundAlias);
+    twitter() {
+      this.shortLink = "";
+      this.longLink = tracking.addTracking(
+        this.urlToShare,
+        "twitter",
+        "social",
+        storage.getters.alias
+      );
+      var short = storage.getters.shortener();
+      //console.log(short.provider);
+      if (short.provider && short.provider !== 'none') {
+        bitly.shorten(this.longLink, short).then((response) => {
+          this.shortLink = response;
+        });
+      }
     },
-    LinkedInLink: function() {
-      return addTracking(
+    linkedin() {
+      this.shortLink = "";
+      this.longLink = tracking.addTracking(
         this.urlToShare,
         "linkedin",
         "social",
-        this.boundAlias
+        storage.getters.alias
       );
     },
-    RedditLink: function() {
-      return addTracking(this.urlToShare, "reddit", "social", this.boundAlias);
+    reddit() {
+      this.shortLink = "";
+      this.longLink = tracking.addTracking(
+        this.urlToShare,
+        "reddit",
+        "social",
+        storage.getters.alias
+      );
     },
-    FacebookLink: function() {
-      return addTracking(
+    facebook() {
+      this.shortLink = "";
+      this.longLink = tracking.addTracking(
         this.urlToShare,
         "facebook",
         "social",
-        this.boundAlias
+        storage.getters.alias
       );
     },
-    StackOverFlowLink: function() {
-      return addTracking(
+    stackoverflow() {
+      this.shortLink = "";
+      this.longLink = tracking.addTracking(
         this.urlToShare,
         "stackoverflow",
         "social",
-        this.boundAlias
+        storage.getters.alias
       );
     },
-    HackerNewsLink: function() {
-      return addTracking(
+    hackernews() {
+      this.shortLink = "";
+      this.longLink = tracking.addTracking(
         this.urlToShare,
         "hackernews",
         "social",
-        this.boundAlias
+        storage.getters.alias
       );
     },
-    AzureMediumLink: function() {
-      return addTracking(
+    azuremedium() {
+      this.shortLink = "";
+      this.longLink = tracking.addTracking(
         this.urlToShare,
         "azuremedium",
         "blog",
-        this.boundAlias
+        storage.getters.alias
       );
     },
-    MediumLink: function() {
-      return addTracking(this.urlToShare, "medium", "blog", this.boundAlias);
+    medium() {
+      this.shortLink = "";
+      this.longLink = tracking.addTracking(
+        this.urlToShare,
+        "medium",
+        "blog",
+        storage.getters.alias
+      );
     },
-    YouTubeLink: function() {
-
-      return addTracking(
+    youtube() {
+      this.shortLink = "";
+      this.longLink = tracking.addTracking(
         this.urlToShare,
         this.event,
         "youtube",
-        this.boundAlias
+        storage.getters.alias
       );
     },
-    GitHubLink: function() {
-
-      return addTracking(
+    github() {
+      this.shortLink = "";
+      this.longLink = tracking.addTracking(
         this.urlToShare,
         this.event,
         "github",
-        this.boundAlias
+        storage.getters.alias
       );
     }
-  }
+  },
+  computed: {}
 };
 
-function addTracking(url, event, channel, alias) {
-  var baseUrl = url || "";
-
-  var defaultDomains = [
-    /(.*\.)?microsoft\.com$/,
-    /(.*\.)?msdn\.com$/,
-    /(.*\.)?visualstudio\.com$/,
-    "www.microsoftevents.com"
-  ];
-
-  var config = {
-    event: event,
-    channel: channel,
-    alias: alias
-  };
-
-  var domains = config.domains;
-  if (domains || Array.isArray(domains)) {
-    domains = domains.concat(defaultDomains);
-  } else {
-    domains = defaultDomains;
-  }
-
-  config.domains = domains;
-  let shouldAddTrackingInfo = false;
-
-  if(baseUrl){
-    var uri = new URL(baseUrl);
-
-    for(let i = 0; i < config.domains.length; i++){
-      let domain = config.domains[i];
-      if(uri.host.match(domain)) {
-        shouldAddTrackingInfo = true;        
-        break;
-      }
-    }
-    
-    if(shouldAddTrackingInfo) {
-      //remove locale
-      var localeRegex = /^\/\w{2}-\w{2}/g;
-      uri.pathname = uri.pathname.replace(localeRegex, '');
-      
-      baseUrl = uri.toString();   
-    } 
-  }
-
-  if(shouldAddTrackingInfo) {
-    return appendTrackingInfo(config, baseUrl);
-  }
-
-  return baseUrl;
-}
-
-function appendTrackingInfo(config, link) {
-
-  var tracking =
-    "WT.mc_id=" + config.event + "-" + config.channel + "-" + config.alias;
-
-  //respect or ignore currect query string
-  var separator = link.indexOf("?") > 0 ? "&" : "?";
-
-  //respect or ignore hash
-  var hash = "";
-  var hasHash = link.indexOf("#");
-  if (hasHash != -1) {
-    hash = link.substr(hasHash);
-    link = link.replace(hash, "");
-  }  
-
-  return link + separator + tracking + hash;
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
