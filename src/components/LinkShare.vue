@@ -61,17 +61,11 @@
         </div>
 
         <div class="col-2">
-          <button
-            type="button"
-            class="btn btn-primary"
-            v-on:click.prevent
-            v-bind:click="CreateLink"
-            v-clipboard:success="handleSuccess"
-            v-clipboard:copy="CreateLink"
-          >Create Link</button>
+          <button type="button" class="btn btn-primary" v-on:click="create">Create Link</button>
         </div>
       </div>
 
+      <!--
       <div class="row">
         <div class="col-auto">
           <div class="card">
@@ -232,184 +226,121 @@
           </div>
         </div>
       </div>
+      -->
       <div class="row">
-        <div class="col-auto">Created Link: {{CreateLink}}</div>
+        <div class="col-auto text-right">
+          <a v-clipboard:copy="longLink" v-clipboard:success="handleSuccess">
+            <font-awesome-icon icon="copy"/>
+          </a>
+        </div>
+        <div class="col-auto text-left">{{ longLink }}</div>
+      </div>
+
+      <div class="row">
+        <div class="col-auto text-right">
+          <a v-clipboard:copy="shortLink" v-clipboard:success="handleSuccess">
+            <font-awesome-icon icon="copy"/>
+          </a>
+        </div>
+        <div class="col-auto text-left">{{ shortLink }}</div>
       </div>
     </div>
+
   </div>
 </template>
 
 <script>
+/* eslint-disable no-console */
+import storage from "../modules/storage";
+import bitly from "../modules/bitly";
+import tracking from "../modules/tracking";
+
 export default {
   name: "LinkShare",
-  data: function() {
-    return {
-      copied: "",
-      event: "social",
-      channel: "",
-      urlToShare: "",
-      boundAlias: this.$localStorage.get("alias")
-    };
-  },
+  data: () => ({
+    copied: "",
+    event: "social",
+    channel: "",
+    urlToShare: "",
+    longLink: "",
+    shortLink: ""
+  }),
   methods: {
-    handleSuccess: function() {
+    onCopy: function(e) {
+      alert("You just copied: " + e.text);
+    },
+    handleSuccess() {
       this.$toasted.show("Copied to clipboard", {
         theme: "outline",
         position: "top-center",
         duration: 2000
       });
-    }
-  },
-  computed: {
-    CreateLink: function() {
-      return addTracking(
+    },
+    create() {
+      this.longLink = tracking.addTracking(
         this.urlToShare,
         this.event,
         this.channel,
-        this.boundAlias
+        storage.getters.alias
       );
-    },
-    TwitterLink: function() {
-      return addTracking(this.urlToShare, "twitter", "social", this.boundAlias);
-    },
-    LinkedInLink: function() {
-      return addTracking(
-        this.urlToShare,
-        "linkedin",
-        "social",
-        this.boundAlias
-      );
-    },
-    RedditLink: function() {
-      return addTracking(this.urlToShare, "reddit", "social", this.boundAlias);
-    },
-    FacebookLink: function() {
-      return addTracking(
-        this.urlToShare,
-        "facebook",
-        "social",
-        this.boundAlias
-      );
-    },
-    StackOverFlowLink: function() {
-      return addTracking(
-        this.urlToShare,
-        "stackoverflow",
-        "social",
-        this.boundAlias
-      );
-    },
-    HackerNewsLink: function() {
-      return addTracking(
-        this.urlToShare,
-        "hackernews",
-        "social",
-        this.boundAlias
-      );
-    },
-    AzureMediumLink: function() {
-      return addTracking(
-        this.urlToShare,
-        "azuremedium",
-        "blog",
-        this.boundAlias
-      );
-    },
-    MediumLink: function() {
-      return addTracking(this.urlToShare, "medium", "blog", this.boundAlias);
-    },
-    YouTubeLink: function() {
+      var short = storage.getters.shortener();
+      
+      if (short.provider) {
+        bitly.shorten(this.longLink, short).then((response) => {
+          this.shortLink = response;
+        });
 
-      return addTracking(
-        this.urlToShare,
-        this.event,
-        "youtube",
-        this.boundAlias
-      );
-    },
-    GitHubLink: function() {
-
-      return addTracking(
-        this.urlToShare,
-        this.event,
-        "github",
-        this.boundAlias
-      );
-    }
-  }
-};
-
-function addTracking(url, event, channel, alias) {
-  var baseUrl = url || "";
-
-  var defaultDomains = [
-    /(.*\.)?microsoft\.com$/,
-    /(.*\.)?msdn\.com$/,
-    /(.*\.)?visualstudio\.com$/,
-    "www.microsoftevents.com"
-  ];
-
-  var config = {
-    event: event,
-    channel: channel,
-    alias: alias
-  };
-
-  var domains = config.domains;
-  if (domains || Array.isArray(domains)) {
-    domains = domains.concat(defaultDomains);
-  } else {
-    domains = defaultDomains;
-  }
-
-  config.domains = domains;
-  let shouldAddTrackingInfo = false;
-
-  if(baseUrl){
-    var uri = new URL(baseUrl);
-
-    for(let i = 0; i < config.domains.length; i++){
-      let domain = config.domains[i];
-      if(uri.host.match(domain)) {
-        shouldAddTrackingInfo = true;        
-        break;
       }
     }
-    
-    if(shouldAddTrackingInfo) {
-      //remove locale
-      var localeRegex = /^\/\w{2}-\w{2}/g;
-      uri.pathname = uri.pathname.replace(localeRegex, '');
-      
-      baseUrl = uri.toString();   
-    } 
+  },
+  computed: {
+    // CreateLink: function() {
+    //   return addTracking(
+    //     this.urlToShare, this.event, this.channel, this.boundAlias, this.shortProvider
+    //   );
+    // },
+    // TwitterLink: function() {
+    //   return addTracking(this.urlToShare, "twitter", "social", this.boundAlias, this.shortProvider
+    //   );
+    // },
+    // LinkedInLink: function() {
+    //   return addTracking(this.urlToShare, "linkedin", "social", this.boundAlias, this.shortProvider
+    //   );
+    // },
+    // RedditLink: function() {
+    //   return addTracking(this.urlToShare, "reddit", "social", this.boundAlias, this.shortProvider
+    //   );
+    // },
+    // FacebookLink: function() {
+    //   return addTracking(this.urlToShare, "facebook", "social", this.boundAlias, this.shortProvider
+    //   );
+    // },
+    // StackOverFlowLink: function() {
+    //   return addTracking(this.urlToShare, "stackoverflow", "social", this.boundAlias, this.shortProvider
+    //   );
+    // },
+    // HackerNewsLink: function() {
+    //   return addTracking(this.urlToShare, "hackernews", "social", this.boundAlias, this.shortProvider
+    //   );
+    // },
+    // AzureMediumLink: function() {
+    //   return addTracking(this.urlToShare, "azuremedium", "blog", this.boundAlias, this.shortProvider
+    //   );
+    // },
+    // MediumLink: function() {
+    //   return addTracking(this.urlToShare, "medium", "blog", this.boundAlias, this.shortProvider
+    //   );
+    // },
+    // YouTubeLink: function() {
+    //   return addTracking(this.urlToShare, this.event, "youtube", this.boundAlias, this.shortProvider
+    //   );
+    // },
+    // GitHubLink: function() {
+    //   return addTracking(this.urlToShare, this.event, "github", this.boundAlias, this.shortProvider
+    //   );
+    // }
   }
-
-  if(shouldAddTrackingInfo) {
-    return appendTrackingInfo(config, baseUrl);
-  }
-
-  return baseUrl;
-}
-
-function appendTrackingInfo(config, link) {
-
-  var tracking =
-    "WT.mc_id=" + config.event + "-" + config.channel + "-" + config.alias;
-
-  //respect or ignore currect query string
-  var separator = link.indexOf("?") > 0 ? "&" : "?";
-
-  //respect or ignore hash
-  var hash = "";
-  var hasHash = link.indexOf("#");
-  if (hasHash != -1) {
-    hash = link.substr(hasHash);
-    link = link.replace(hash, "");
-  }  
-
-  return link + separator + tracking + hash;
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
