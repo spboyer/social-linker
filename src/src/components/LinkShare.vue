@@ -245,7 +245,6 @@
         <div class="col-auto text-left">{{ shortLink }}</div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -285,7 +284,7 @@ export default {
       );
       var short = storage.getters.shortener();
       console.log(short.provider);
-      if (short.provider) {
+      if (short.provider && short.provider !== "none") {
         var val = bitly.shorten(this.longLink, short);
         this.shortLink = val;
       }
