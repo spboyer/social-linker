@@ -107,6 +107,7 @@
 </template>
 
 <script>
+/* eslint-disable no-console */
 import storage from '../modules/storage'
 
 export default {
@@ -119,14 +120,48 @@ export default {
       shortVanity: ""
   }),
   components: {},
-  created(){
-    this.alias = storage.getters.alias,
-    this.shortUsername = storage.getters.shortUsername,
-    this.shortApiKey = storage.getters.shortApiKey,
-    this.shortVanity = storage.getters.shortVanity,
-    this.shortenerProvider = storage.getters.shortenerProvider
+  mounted(){
+    this.getAlias()
+    this.getShortUsername(),
+    this.getShortApiKey(),
+    this.getShortVanity(),
+    this.getShortenerProvider()
   },
   methods: {
+    getAlias: function() {
+      return storage.getters.alias().then((result) => {
+        this.alias = result;
+      }).catch(err => {
+        console.log(err);
+      });
+    },
+    getShortUsername: function() {
+      return storage.getters.shortUsername().then((result) => {
+        this.shortUsername = result;
+      }).catch(err => {
+        console.log(err);
+      });
+    },
+    getShortApiKey: function() {
+      return storage.getters.shortApiKey().then((result) => {
+        this.shortApiKey = result;
+      }).catch(err => {
+        console.log(err);
+      });
+    },
+    getShortVanity: function() {
+      return storage.getters.shortVanity().then((result) => {
+        this.shortVanity = result;
+      }).catch(err => {
+        console.log(err);
+      });
+    },
+    getShortenerProvider: function() {
+      return storage.getters.shortenerProvider().then((result) => {
+        this.shortenerProvider = result;
+
+      })
+    },
     hideConfig: function(option) {
       return option === this.shortenerProvider;
     },
