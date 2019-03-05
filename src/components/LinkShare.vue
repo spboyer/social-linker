@@ -239,7 +239,7 @@
 <script>
 /* eslint-disable no-console */
 import storage from "../modules/storage";
-import bitly from "../modules/bitly";
+import service from "../modules/services";
 import tracking from "../modules/tracking";
 
 export default {
@@ -250,8 +250,18 @@ export default {
     channel: "",
     urlToShare: "",
     longLink: "",
-    shortLink: ""
+    shortLink: "",
+    shortenerProvider: "",
+    shortApiKey: "",
+    shortUsername: "",
+    alias: ""
   }),
+  mounted(){
+    this.getAlias()
+    this.getShortUsername(),
+    this.getShortApiKey(),
+    this.getShortenerProvider()
+  },
   methods: {
     onCopy: function(e) {
       alert("You just copied: " + e.text);
@@ -263,17 +273,50 @@ export default {
         duration: 2000
       });
     },
+    getAlias: function() {
+      return storage.getters.alias().then((result) => {
+        this.alias = result;
+      }).catch(err => {
+        console.log(err);
+      });
+    },
+    getShortUsername: function() {
+      return storage.getters.shortUsername().then((result) => {
+        this.shortUsername = result;
+      }).catch(err => {
+        console.log(err);
+      });
+    },
+    getShortApiKey: function() {
+      return storage.getters.shortApiKey().then((result) => {
+        this.shortApiKey = result;
+      }).catch(err => {
+        console.log(err);
+      });
+    },
+    getShortenerProvider: function() {
+      return storage.getters.shortenerProvider().then((result) => {
+        this.shortenerProvider = result;
+
+      })
+    },
     create() {
       this.longLink = tracking.addTracking(
         this.urlToShare,
         this.event,
         this.channel,
-        storage.getters.alias
+        this.alias
       );
-      var short = storage.getters.shortener();
-      //console.log(short.provider);
-      if (short.provider && short.provider !== 'none') {
-        bitly.shorten(this.longLink, short).then((response) => {
+
+      var short = { apiKey: this.shortApiKey, username: this.shortUsername};
+
+      if (this.shortenerProvider && this.shortenerProvider !== 'none' && this.shortenerProvider === 'bit.ly') {
+        service.bitly.shorten(this.longLink, short).then((response) => {
+          this.shortLink = response;
+        });
+      }
+      if (this.shortenerProvider && this.shortenerProvider !== 'none' && this.shortenerProvider === 'cda.ms') {
+        service.cda.shorten(this.longLink).then((response) => {
           this.shortLink = response;
         });
       }
@@ -284,12 +327,18 @@ export default {
         this.urlToShare,
         "twitter",
         "social",
-        storage.getters.alias
+        this.alias
       );
-      var short = storage.getters.shortener();
-      //console.log(short.provider);
-      if (short.provider && short.provider !== 'none') {
-        bitly.shorten(this.longLink, short).then((response) => {
+
+      var short = { apiKey: this.shortApiKey, username: this.shortUsername};
+
+      if (this.shortenerProvider && this.shortenerProvider !== 'none' && this.shortenerProvider === 'bit.ly') {
+        service.bitly.shorten(this.longLink, short).then((response) => {
+          this.shortLink = response;
+        });
+      }
+      if (this.shortenerProvider && this.shortenerProvider !== 'none' && this.shortenerProvider === 'cda.ms') {
+        service.cda.shorten(this.longLink).then((response) => {
           this.shortLink = response;
         });
       }
@@ -300,7 +349,7 @@ export default {
         this.urlToShare,
         "linkedin",
         "social",
-        storage.getters.alias
+        this.alias
       );
     },
     reddit() {
@@ -309,7 +358,7 @@ export default {
         this.urlToShare,
         "reddit",
         "social",
-        storage.getters.alias
+        this.alias
       );
     },
     facebook() {
@@ -318,7 +367,7 @@ export default {
         this.urlToShare,
         "facebook",
         "social",
-        storage.getters.alias
+        this.alias
       );
     },
     stackoverflow() {
@@ -327,7 +376,7 @@ export default {
         this.urlToShare,
         "stackoverflow",
         "social",
-        storage.getters.alias
+        this.alias
       );
     },
     hackernews() {
@@ -336,7 +385,7 @@ export default {
         this.urlToShare,
         "hackernews",
         "social",
-        storage.getters.alias
+        this.alias
       );
     },
     azuremedium() {
@@ -345,7 +394,7 @@ export default {
         this.urlToShare,
         "azuremedium",
         "blog",
-        storage.getters.alias
+        this.alias
       );
     },
     medium() {
@@ -354,7 +403,7 @@ export default {
         this.urlToShare,
         "medium",
         "blog",
-        storage.getters.alias
+        this.alias
       );
     },
     youtube() {
@@ -363,7 +412,7 @@ export default {
         this.urlToShare,
         this.event,
         "youtube",
-        storage.getters.alias
+        this.alias
       );
     },
     github() {
@@ -372,7 +421,7 @@ export default {
         this.urlToShare,
         this.event,
         "github",
-        storage.getters.alias
+        this.alias
       );
     }
   },

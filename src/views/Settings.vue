@@ -86,27 +86,13 @@
           >
         </div>
 
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="bitly-vanity-describe">Vanity Url</span>
-          </div>
-          <input
-            id="bitly-vanity"
-            name="bitly-vanity"
-            class="form-control"
-            aria-describedby="bitly-vanity-describe"
-            type="text"
-            v-model="shortVanity"
-            v-on:input="setshortVanity"
-            placeholder="myname.me or leave blank for bit.ly"
-          >
-        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+/* eslint-disable no-console */
 import storage from '../modules/storage'
 
 export default {
@@ -115,18 +101,43 @@ export default {
       alias: "",
       shortenerProvider: "",
       shortApiKey: "",
-      shortUsername: "",
-      shortVanity: ""
+      shortUsername: ""
   }),
   components: {},
-  created(){
-    this.alias = storage.getters.alias,
-    this.shortUsername = storage.getters.shortUsername,
-    this.shortApiKey = storage.getters.shortApiKey,
-    this.shortVanity = storage.getters.shortVanity,
-    this.shortenerProvider = storage.getters.shortenerProvider
+  mounted(){
+    this.getAlias()
+    this.getShortUsername(),
+    this.getShortApiKey(),
+    this.getShortenerProvider()
   },
   methods: {
+    getAlias: function() {
+      return storage.getters.alias().then((result) => {
+        this.alias = result;
+      }).catch(err => {
+        console.log(err);
+      });
+    },
+    getShortUsername: function() {
+      return storage.getters.shortUsername().then((result) => {
+        this.shortUsername = result;
+      }).catch(err => {
+        console.log(err);
+      });
+    },
+    getShortApiKey: function() {
+      return storage.getters.shortApiKey().then((result) => {
+        this.shortApiKey = result;
+      }).catch(err => {
+        console.log(err);
+      });
+    },
+    getShortenerProvider: function() {
+      return storage.getters.shortenerProvider().then((result) => {
+        this.shortenerProvider = result;
+
+      })
+    },
     hideConfig: function(option) {
       return option === this.shortenerProvider;
     },
@@ -141,9 +152,6 @@ export default {
     },
     setShortUsername: function() {
       storage.actions.saveShortUsername(this.shortUsername);
-    },
-    setshortVanity: function() {
-      storage.actions.saveShortVanity(this.shortVanity);
     }
   }
 };
