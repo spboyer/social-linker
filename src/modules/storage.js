@@ -72,15 +72,6 @@ const getters = {
       .catch(err => {
         console.log(err);
       });
-  },
-
-  shortener: () => {
-    return {
-      apiKey: getters.shortApiKey,
-      username: getters.shortUsername,
-      provider: getters.shortenerProvider,
-      vanity: getters.shortVanity
-    };
   }
 };
 

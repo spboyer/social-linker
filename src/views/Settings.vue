@@ -86,21 +86,6 @@
           >
         </div>
 
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="bitly-vanity-describe">Vanity Url</span>
-          </div>
-          <input
-            id="bitly-vanity"
-            name="bitly-vanity"
-            class="form-control"
-            aria-describedby="bitly-vanity-describe"
-            type="text"
-            v-model="shortVanity"
-            v-on:input="setshortVanity"
-            placeholder="myname.me or leave blank for bit.ly"
-          >
-        </div>
       </div>
     </div>
   </div>
@@ -116,15 +101,13 @@ export default {
       alias: "",
       shortenerProvider: "",
       shortApiKey: "",
-      shortUsername: "",
-      shortVanity: ""
+      shortUsername: ""
   }),
   components: {},
   mounted(){
     this.getAlias()
     this.getShortUsername(),
     this.getShortApiKey(),
-    this.getShortVanity(),
     this.getShortenerProvider()
   },
   methods: {
@@ -149,13 +132,6 @@ export default {
         console.log(err);
       });
     },
-    getShortVanity: function() {
-      return storage.getters.shortVanity().then((result) => {
-        this.shortVanity = result;
-      }).catch(err => {
-        console.log(err);
-      });
-    },
     getShortenerProvider: function() {
       return storage.getters.shortenerProvider().then((result) => {
         this.shortenerProvider = result;
@@ -176,9 +152,6 @@ export default {
     },
     setShortUsername: function() {
       storage.actions.saveShortUsername(this.shortUsername);
-    },
-    setshortVanity: function() {
-      storage.actions.saveShortVanity(this.shortVanity);
     }
   }
 };
