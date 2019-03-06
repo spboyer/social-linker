@@ -113,37 +113,25 @@ export default {
     getAlias() {
       return storage.getters
         .alias()
-        .then(result => {
-          this.alias = result;
-        })
-        .catch(err => {
-          console.log(err);
-        });
+        .then(result => (this.alias = result))
+        .catch(err => console.log(err));
     },
     getShortUsername() {
       return storage.getters
         .shortUsername()
-        .then(result => {
-          this.shortUsername = result;
-        })
-        .catch(err => {
-          console.log(err);
-        });
+        .then(result => (this.shortUsername = result))
+        .catch(err => console.log(err));
     },
     getShortApiKey() {
       return storage.getters
         .shortApiKey()
-        .then(result => {
-          this.shortApiKey = result;
-        })
-        .catch(err => {
-          console.log(err);
-        });
+        .then(result => (this.shortApiKey = result))
+        .catch(err => console.log(err));
     },
     getShortenerProvider() {
-      return storage.getters.shortenerProvider().then(result => {
-        this.shortenerProvider = result;
-      });
+      return storage.getters
+        .shortenerProvider()
+        .then(result => (this.shortenerProvider = result));
     },
     hideConfig(option) {
       return option === this.shortenerProvider;
