@@ -65,6 +65,11 @@
         </div>
       </div>
 
+      <div class="row">
+        <div class="col-8  text-left">
+          <blockquote>tracking link format follows: event-channel-alias</blockquote>
+        </div>
+      </div>
 
       <div class="row">
         <div class="col-auto">
@@ -256,14 +261,12 @@ export default {
     shortUsername: "",
     alias: ""
   }),
-  mounted(){
-    this.getAlias()
-    this.getShortUsername(),
-    this.getShortApiKey(),
-    this.getShortenerProvider()
+  mounted() {
+    this.getAlias();
+    this.getShortUsername(), this.getShortApiKey(), this.getShortenerProvider();
   },
   methods: {
-    onCopy: function(e) {
+    onCopy(e) {
       alert("You just copied: " + e.text);
     },
     handleSuccess() {
@@ -273,32 +276,40 @@ export default {
         duration: 2000
       });
     },
-    getAlias: function() {
-      return storage.getters.alias().then((result) => {
-        this.alias = result;
-      }).catch(err => {
-        console.log(err);
-      });
+    getAlias() {
+      return storage.getters
+        .alias()
+        .then(result => {
+          this.alias = result;
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
-    getShortUsername: function() {
-      return storage.getters.shortUsername().then((result) => {
-        this.shortUsername = result;
-      }).catch(err => {
-        console.log(err);
-      });
+    getShortUsername() {
+      return storage.getters
+        .shortUsername()
+        .then(result => {
+          this.shortUsername = result;
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
-    getShortApiKey: function() {
-      return storage.getters.shortApiKey().then((result) => {
-        this.shortApiKey = result;
-      }).catch(err => {
-        console.log(err);
-      });
+    getShortApiKey() {
+      return storage.getters
+        .shortApiKey()
+        .then(result => {
+          this.shortApiKey = result;
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
-    getShortenerProvider: function() {
-      return storage.getters.shortenerProvider().then((result) => {
+    getShortenerProvider() {
+      return storage.getters.shortenerProvider().then(result => {
         this.shortenerProvider = result;
-
-      })
+      });
     },
     create() {
       this.longLink = tracking.addTracking(
@@ -308,15 +319,23 @@ export default {
         this.alias
       );
 
-      var short = { apiKey: this.shortApiKey, username: this.shortUsername};
+      var short = { apiKey: this.shortApiKey, username: this.shortUsername };
 
-      if (this.shortenerProvider && this.shortenerProvider !== 'none' && this.shortenerProvider === 'bit.ly') {
-        service.bitly.shorten(this.longLink, short).then((response) => {
+      if (
+        this.shortenerProvider &&
+        this.shortenerProvider !== "none" &&
+        this.shortenerProvider === "bit.ly"
+      ) {
+        service.bitly.shorten(this.longLink, short).then(response => {
           this.shortLink = response;
         });
       }
-      if (this.shortenerProvider && this.shortenerProvider !== 'none' && this.shortenerProvider === 'cda.ms') {
-        service.cda.shorten(this.longLink).then((response) => {
+      if (
+        this.shortenerProvider &&
+        this.shortenerProvider !== "none" &&
+        this.shortenerProvider === "cda.ms"
+      ) {
+        service.cda.shorten(this.longLink).then(response => {
           this.shortLink = response;
         });
       }
@@ -330,15 +349,23 @@ export default {
         this.alias
       );
 
-      var short = { apiKey: this.shortApiKey, username: this.shortUsername};
+      var short = { apiKey: this.shortApiKey, username: this.shortUsername };
 
-      if (this.shortenerProvider && this.shortenerProvider !== 'none' && this.shortenerProvider === 'bit.ly') {
-        service.bitly.shorten(this.longLink, short).then((response) => {
+      if (
+        this.shortenerProvider &&
+        this.shortenerProvider !== "none" &&
+        this.shortenerProvider === "bit.ly"
+      ) {
+        service.bitly.shorten(this.longLink, short).then(response => {
           this.shortLink = response;
         });
       }
-      if (this.shortenerProvider && this.shortenerProvider !== 'none' && this.shortenerProvider === 'cda.ms') {
-        service.cda.shorten(this.longLink).then((response) => {
+      if (
+        this.shortenerProvider &&
+        this.shortenerProvider !== "none" &&
+        this.shortenerProvider === "cda.ms"
+      ) {
+        service.cda.shorten(this.longLink).then(response => {
           this.shortLink = response;
         });
       }
