@@ -2,23 +2,22 @@
 
 const tracking = {
   addTracking: (url, event, channel, alias) => {
-    var baseUrl = url || "";
-    if (baseUrl === "")
-      return;
+    let baseUrl = url || '';
+    if (baseUrl === '') return;
 
-    var defaultDomains = [
+    const defaultDomains = [
       /(.*\.)?microsoft\.com$/,
       /(.*\.)?msdn\.com$/,
       /(.*\.)?visualstudio\.com$/,
-      "www.microsoftevents.com"
+      'www.microsoftevents.com'
     ];
 
-    var config = {
+    const config = {
       event: event,
       channel: channel,
       alias: alias
     };
-    var domains = config.domains;
+    let domains = config.domains;
     if (domains || Array.isArray(domains)) {
       domains = domains.concat(defaultDomains);
     } else {
@@ -26,48 +25,44 @@ const tracking = {
     }
     config.domains = domains;
     let shouldAddTrackingInfo = false;
-    if(baseUrl){
-      var uri = new URL(baseUrl);
-      for(let i = 0; i < config.domains.length; i++){
+    if (baseUrl) {
+      const uri = new URL(baseUrl);
+      for (let i = 0; i < config.domains.length; i++) {
         let domain = config.domains[i];
-        if(uri.host.match(domain)) {
+        if (uri.host.match(domain)) {
           shouldAddTrackingInfo = true;
           break;
         }
       }
 
-      if(shouldAddTrackingInfo) {
+      if (shouldAddTrackingInfo) {
         //remove locale
-        var localeRegex = /^\/\w{2}-\w{2}/g;
+        const localeRegex = /^\/\w{2}-\w{2}/g;
         uri.pathname = uri.pathname.replace(localeRegex, '');
 
         baseUrl = uri.toString();
       }
     }
-    if(shouldAddTrackingInfo) {
+    if (shouldAddTrackingInfo) {
       return appendTrackingInfo(config, baseUrl);
     }
     return baseUrl;
-  },
-
-
-}
+  }
+};
 
 function appendTrackingInfo(config, link) {
-  var tracking =
-    "WT.mc_id=" + config.event + "-" + config.channel + "-" + config.alias;
+  const tracking =
+    'WT.mc_id=' + config.event + '-' + config.channel + '-' + config.alias;
   //respect or ignore currect query string
-  var separator = link.indexOf("?") > 0 ? "&" : "?";
+  const separator = link.indexOf('?') > 0 ? '&' : '?';
   //respect or ignore hash
-  var hash = "";
-  var hasHash = link.indexOf("#");
+  let hash = '';
+  const hasHash = link.indexOf('#');
   if (hasHash != -1) {
     hash = link.substr(hasHash);
-    link = link.replace(hash, "");
+    link = link.replace(hash, '');
   }
   return link + separator + tracking + hash;
 }
 
-export {
-  tracking as default
-};
+export { tracking as default };

@@ -65,6 +65,11 @@
         </div>
       </div>
 
+      <div class="row">
+        <div class="col-8  text-left">
+          <blockquote>tracking link format follows: event-channel-alias</blockquote>
+        </div>
+      </div>
 
       <div class="row">
         <div class="col-auto">
@@ -244,27 +249,27 @@ import tracking from "../modules/tracking";
 
 export default {
   name: "LinkShare",
-  data: () => ({
-    copied: "",
-    event: "social",
-    channel: "",
-    urlToShare: "",
-    longLink: "",
-    shortLink: "",
-    shortenerProvider: "",
-    shortApiKey: "",
-    shortUsername: "",
-    alias: ""
-  }),
-  mounted(){
-    this.getAlias()
-    this.getShortUsername(),
-    this.getShortApiKey(),
-    this.getShortenerProvider()
+  data() {
+    return {
+      copied: "",
+      event: "social",
+      channel: "",
+      urlToShare: "",
+      longLink: "",
+      shortLink: "",
+      shortenerProvider: "",
+      shortApiKey: "",
+      shortUsername: "",
+      alias: ""
+    };
+  },
+  mounted() {
+    this.getAlias();
+    this.getShortUsername(), this.getShortApiKey(), this.getShortenerProvider();
   },
   methods: {
-    onCopy: function(e) {
-      alert("You just copied: " + e.text);
+    onCopy(e) {
+      alert(`You just copied:  ${e.text}`);
     },
     handleSuccess() {
       this.$toasted.show("Copied to clipboard", {
@@ -273,32 +278,28 @@ export default {
         duration: 2000
       });
     },
-    getAlias: function() {
-      return storage.getters.alias().then((result) => {
-        this.alias = result;
-      }).catch(err => {
-        console.log(err);
-      });
+    getAlias() {
+      return storage.getters
+        .alias()
+        .then(result => (this.alias = result))
+        .catch(err => console.log(err));
     },
-    getShortUsername: function() {
-      return storage.getters.shortUsername().then((result) => {
-        this.shortUsername = result;
-      }).catch(err => {
-        console.log(err);
-      });
+    getShortUsername() {
+      return storage.getters
+        .shortUsername()
+        .then(result => (this.shortUsername = result))
+        .catch(err => console.log(err));
     },
-    getShortApiKey: function() {
-      return storage.getters.shortApiKey().then((result) => {
-        this.shortApiKey = result;
-      }).catch(err => {
-        console.log(err);
-      });
+    getShortApiKey() {
+      return storage.getters
+        .shortApiKey()
+        .then(result => (this.shortApiKey = result))
+        .catch(err => console.log(err));
     },
-    getShortenerProvider: function() {
-      return storage.getters.shortenerProvider().then((result) => {
-        this.shortenerProvider = result;
-
-      })
+    getShortenerProvider() {
+      return storage.getters
+        .shortenerProvider()
+        .then(result => (this.shortenerProvider = result));
     },
     create() {
       this.longLink = tracking.addTracking(
@@ -308,124 +309,88 @@ export default {
         this.alias
       );
 
-      var short = { apiKey: this.shortApiKey, username: this.shortUsername};
+      const short = { apiKey: this.shortApiKey, username: this.shortUsername };
 
-      if (this.shortenerProvider && this.shortenerProvider !== 'none' && this.shortenerProvider === 'bit.ly') {
-        service.bitly.shorten(this.longLink, short).then((response) => {
+      if (
+        this.shortenerProvider &&
+        this.shortenerProvider !== "none" &&
+        this.shortenerProvider === "bit.ly"
+      ) {
+        service.bitly.shorten(this.longLink, short).then(response => {
           this.shortLink = response;
         });
       }
-      if (this.shortenerProvider && this.shortenerProvider !== 'none' && this.shortenerProvider === 'cda.ms') {
-        service.cda.shorten(this.longLink).then((response) => {
+      if (
+        this.shortenerProvider &&
+        this.shortenerProvider !== "none" &&
+        this.shortenerProvider === "cda.ms"
+      ) {
+        service.cda.shorten(this.longLink).then(response => {
           this.shortLink = response;
         });
       }
     },
     twitter() {
+      this.addTracking("twitter", "social");
+
+      const short = { apiKey: this.shortApiKey, username: this.shortUsername };
+
+      if (
+        this.shortenerProvider &&
+        this.shortenerProvider !== "none" &&
+        this.shortenerProvider === "bit.ly"
+      ) {
+        service.bitly.shorten(this.longLink, short).then(response => {
+          this.shortLink = response;
+        });
+      }
+      if (
+        this.shortenerProvider &&
+        this.shortenerProvider !== "none" &&
+        this.shortenerProvider === "cda.ms"
+      ) {
+        service.cda.shorten(this.longLink).then(response => {
+          this.shortLink = response;
+        });
+      }
+    },
+    addTracking(event, channel) {
       this.shortLink = "";
       this.longLink = tracking.addTracking(
         this.urlToShare,
-        "twitter",
-        "social",
+        event,
+        channel,
         this.alias
       );
-
-      var short = { apiKey: this.shortApiKey, username: this.shortUsername};
-
-      if (this.shortenerProvider && this.shortenerProvider !== 'none' && this.shortenerProvider === 'bit.ly') {
-        service.bitly.shorten(this.longLink, short).then((response) => {
-          this.shortLink = response;
-        });
-      }
-      if (this.shortenerProvider && this.shortenerProvider !== 'none' && this.shortenerProvider === 'cda.ms') {
-        service.cda.shorten(this.longLink).then((response) => {
-          this.shortLink = response;
-        });
-      }
     },
     linkedin() {
-      this.shortLink = "";
-      this.longLink = tracking.addTracking(
-        this.urlToShare,
-        "linkedin",
-        "social",
-        this.alias
-      );
+      this.addTracking("linkedin", "social");
     },
     reddit() {
-      this.shortLink = "";
-      this.longLink = tracking.addTracking(
-        this.urlToShare,
-        "reddit",
-        "social",
-        this.alias
-      );
+      this.addTracking("reddit", "social");
     },
     facebook() {
-      this.shortLink = "";
-      this.longLink = tracking.addTracking(
-        this.urlToShare,
-        "facebook",
-        "social",
-        this.alias
-      );
+      this.addTracking("facebook", "social");
     },
     stackoverflow() {
-      this.shortLink = "";
-      this.longLink = tracking.addTracking(
-        this.urlToShare,
-        "stackoverflow",
-        "social",
-        this.alias
-      );
+      this.addTracking("stackoverflow", "social");
     },
     hackernews() {
-      this.shortLink = "";
-      this.longLink = tracking.addTracking(
-        this.urlToShare,
-        "hackernews",
-        "social",
-        this.alias
-      );
+      this.addTracking("hackernews", "social");
     },
     azuremedium() {
-      this.shortLink = "";
-      this.longLink = tracking.addTracking(
-        this.urlToShare,
-        "azuremedium",
-        "blog",
-        this.alias
-      );
+      this.addTracking("azuremedium", "blog");
     },
     medium() {
-      this.shortLink = "";
-      this.longLink = tracking.addTracking(
-        this.urlToShare,
-        "medium",
-        "blog",
-        this.alias
-      );
+      this.addTracking("medium", "blog");
     },
     youtube() {
-      this.shortLink = "";
-      this.longLink = tracking.addTracking(
-        this.urlToShare,
-        this.event,
-        "youtube",
-        this.alias
-      );
+      this.addTracking(this.event, "youtube");
     },
     github() {
-      this.shortLink = "";
-      this.longLink = tracking.addTracking(
-        this.urlToShare,
-        this.event,
-        "github",
-        this.alias
-      );
+      this.addTracking(this.event, "github");
     }
-  },
-  computed: {}
+  }
 };
 </script>
 
