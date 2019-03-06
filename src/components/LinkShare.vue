@@ -319,7 +319,7 @@ export default {
         this.alias
       );
 
-      var short = { apiKey: this.shortApiKey, username: this.shortUsername };
+      const short = { apiKey: this.shortApiKey, username: this.shortUsername };
 
       if (
         this.shortenerProvider &&
@@ -349,7 +349,7 @@ export default {
         this.alias
       );
 
-      var short = { apiKey: this.shortApiKey, username: this.shortUsername };
+      const short = { apiKey: this.shortApiKey, username: this.shortUsername };
 
       if (
         this.shortenerProvider &&

@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
-import axios from "axios";
+import axios from 'axios';
 
 const bitly = {
   shorten: (url, shortner) => {
     return axios
-      .get("https://api-ssl.bitly.com/v3/shorten?", {
+      .get('https://api-ssl.bitly.com/v3/shorten?', {
         params: {
-          format: "json",
+          format: 'json',
           apiKey: shortner.apiKey,
           login: shortner.username,
           longUrl: url
@@ -14,19 +14,19 @@ const bitly = {
       })
       .then(function(response) {
         if (response.status == 200) {
-          var longUrl = response.data.data.long_url;
-          var bitly = response.data.data.url;
+          const longUrl = response.data.data.long_url;
+          const bitly = response.data.data.url;
 
           console.log(longUrl);
           console.log(bitly);
 
           return bitly;
         } else {
-          console.log("Yikes ERROR, status code != 200 :( ");
+          console.log('Yikes ERROR, status code != 200 :( ');
         }
       })
       .catch(function(error) {
-        console.log("Error! " + error);
+        console.log('Error! ' + error);
       });
   }
 };
@@ -34,27 +34,27 @@ const bitly = {
 const cda = {
   shorten: url => {
     return axios({
-      method: "post",
-      url: "https://cda.ms/save",
+      method: 'post',
+      url: 'https://cda.ms/save',
       data: JSON.stringify({ url: url }),
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
       }
     })
       .then(function(response) {
         if (response.status == 200) {
-          var shorty = response.data.url;
+          const shorty = response.data.url;
 
           console.log(shorty);
 
           return shorty;
         } else {
-          console.log("Yikes ERROR, status code != 200 :( ");
+          console.log('Yikes ERROR, status code != 200 :( ');
         }
       })
       .catch(function(error) {
-        console.log("Error! " + error);
+        console.log('Error! ' + error);
       });
   }
 };
