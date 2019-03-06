@@ -269,7 +269,7 @@ export default {
   },
   methods: {
     onCopy(e) {
-      alert("You just copied: " + e.text);
+      alert(`You just copied:  ${e.text}`);
     },
     handleSuccess() {
       this.$toasted.show("Copied to clipboard", {
