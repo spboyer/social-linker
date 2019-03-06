@@ -12,7 +12,7 @@ const bitly = {
           longUrl: url
         }
       })
-      .then(function(response) {
+      .then(response => {
         if (response.status == 200) {
           const longUrl = response.data.data.long_url;
           const bitly = response.data.data.url;
@@ -25,7 +25,7 @@ const bitly = {
           console.log('Yikes ERROR, status code != 200 :( ');
         }
       })
-      .catch(function(error) {
+      .catch(error => {
         console.log('Error! ' + error);
       });
   }
@@ -42,7 +42,7 @@ const cda = {
         'Content-Type': 'application/json'
       }
     })
-      .then(function(response) {
+      .then(response => {
         if (response.status == 200) {
           const shorty = response.data.url;
 
@@ -53,7 +53,7 @@ const cda = {
           console.log('Yikes ERROR, status code != 200 :( ');
         }
       })
-      .catch(function(error) {
+      .catch(error => {
         console.log('Error! ' + error);
       });
   }

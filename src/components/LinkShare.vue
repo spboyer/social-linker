@@ -249,18 +249,20 @@ import tracking from "../modules/tracking";
 
 export default {
   name: "LinkShare",
-  data: () => ({
-    copied: "",
-    event: "social",
-    channel: "",
-    urlToShare: "",
-    longLink: "",
-    shortLink: "",
-    shortenerProvider: "",
-    shortApiKey: "",
-    shortUsername: "",
-    alias: ""
-  }),
+  data() {
+    return {
+      copied: "",
+      event: "social",
+      channel: "",
+      urlToShare: "",
+      longLink: "",
+      shortLink: "",
+      shortenerProvider: "",
+      shortApiKey: "",
+      shortUsername: "",
+      alias: ""
+    };
+  },
   mounted() {
     this.getAlias();
     this.getShortUsername(), this.getShortApiKey(), this.getShortenerProvider();
@@ -341,13 +343,7 @@ export default {
       }
     },
     twitter() {
-      this.shortLink = "";
-      this.longLink = tracking.addTracking(
-        this.urlToShare,
-        "twitter",
-        "social",
-        this.alias
-      );
+      this.addTracking("twitter", "social");
 
       const short = { apiKey: this.shortApiKey, username: this.shortUsername };
 
@@ -370,89 +366,43 @@ export default {
         });
       }
     },
-    linkedin() {
+    addTracking(event, channel) {
       this.shortLink = "";
       this.longLink = tracking.addTracking(
         this.urlToShare,
-        "linkedin",
-        "social",
+        event,
+        channel,
         this.alias
       );
+    },
+    linkedin() {
+      this.addTracking("linkedin", "social");
     },
     reddit() {
-      this.shortLink = "";
-      this.longLink = tracking.addTracking(
-        this.urlToShare,
-        "reddit",
-        "social",
-        this.alias
-      );
+      this.addTracking("reddit", "social");
     },
     facebook() {
-      this.shortLink = "";
-      this.longLink = tracking.addTracking(
-        this.urlToShare,
-        "facebook",
-        "social",
-        this.alias
-      );
+      this.addTracking("facebook", "social");
     },
     stackoverflow() {
-      this.shortLink = "";
-      this.longLink = tracking.addTracking(
-        this.urlToShare,
-        "stackoverflow",
-        "social",
-        this.alias
-      );
+      this.addTracking("stackoverflow", "social");
     },
     hackernews() {
-      this.shortLink = "";
-      this.longLink = tracking.addTracking(
-        this.urlToShare,
-        "hackernews",
-        "social",
-        this.alias
-      );
+      this.addTracking("hackernews", "social");
     },
     azuremedium() {
-      this.shortLink = "";
-      this.longLink = tracking.addTracking(
-        this.urlToShare,
-        "azuremedium",
-        "blog",
-        this.alias
-      );
+      this.addTracking("azuremedium", "blog");
     },
     medium() {
-      this.shortLink = "";
-      this.longLink = tracking.addTracking(
-        this.urlToShare,
-        "medium",
-        "blog",
-        this.alias
-      );
+      this.addTracking("medium", "blog");
     },
     youtube() {
-      this.shortLink = "";
-      this.longLink = tracking.addTracking(
-        this.urlToShare,
-        this.event,
-        "youtube",
-        this.alias
-      );
+      this.addTracking(this.event, "youtube");
     },
     github() {
-      this.shortLink = "";
-      this.longLink = tracking.addTracking(
-        this.urlToShare,
-        this.event,
-        "github",
-        this.alias
-      );
+      this.addTracking(this.event, "github");
     }
-  },
-  computed: {}
+  }
 };
 </script>
 
