@@ -16,11 +16,11 @@ Vue.component('main-navigation', {
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <router-link to="/" class="nav-link">Home</router-link>
+        <li class="nav-item">
+          <router-link to="/" exact-active-class="active" class="nav-link">Home</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/settings" class="nav-link">Settings</router-link>
+          <router-link to="/settings" exact-active-class="active" class="nav-link">Settings</router-link>
         </li>
       </ul>
     </div>
