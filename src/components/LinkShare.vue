@@ -194,7 +194,7 @@
         </div>
       </div>
 
-      <div class="row" v-show="shortLink">
+      <div class="row" v-show="longLink">
         <div class="col-md-6">
           <div class="card">
             <div class="card-header bg-primary font-weight-bold text-white">Links</div>
@@ -209,7 +209,7 @@
                 </div>
               </div>
 
-              <div class="row">
+              <div class="row" v-show="shortLink">
                 <div class="col-sm-12">
                   <a v-clipboard:copy="shortLink" v-clipboard:success="handleSuccess">
                     <font-awesome-icon icon="copy"/>
@@ -269,11 +269,14 @@ export default {
       required
     }
   },
-  mounted() {
-    this.getAlias();
-    this.getShortUsername(), this.getShortApiKey(), this.getShortenerProvider();
-  },
+  mounted() {},
   methods: {
+    async reloadSettings() {
+      await this.getAlias();
+      await this.getShortUsername();
+      await this.getShortApiKey();
+      await this.getShortenerProvider();
+    },
     onCopy(e) {
       alert(`You just copied:  ${e.text}`);
     },
@@ -307,10 +310,14 @@ export default {
         .shortenerProvider()
         .then(result => (this.shortenerProvider = result));
     },
-    create() {
+    async create() {
+      await this.reloadSettings();
+
       if (!this.alias || !this.shortenerProvider) {
         this.showConfigurationError = true;
         return;
+      } else {
+        this.showConfigurationError = false;
       }
       this.longLink = tracking.addTracking(
         this.urlToShare,
@@ -357,7 +364,7 @@ export default {
       }
     },
     addTracking(event, channel) {
-      this.shortLink = "[Not Generated]";
+      this.shortLink = "";
       this.longLink = tracking.addTracking(
         this.urlToShare,
         event,
