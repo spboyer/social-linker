@@ -18,6 +18,8 @@
               id="urlToShare"
               name="urlToShare"
               class="form-control"
+              @blur="$v.urlToShare.$touch()"
+              :class="{ 'is-invalid': $v.urlToShare.$invalid && $v.urlToShare.$dirty, 'is-valid': !$v.urlToShare.$invalid }"
               aria-describedby="urlToShare-describe"
               type="text"
               v-model="urlToShare"
@@ -37,6 +39,8 @@
               id="event-code"
               name="event-code"
               class="form-control"
+              @blur="$v.event.$touch()"
+              :class="{ 'is-invalid': $v.event.$invalid && $v.event.$dirty, 'is-valid': !$v.event.$invalid }"
               aria-describedby="event-code-describe"
               type="text"
               v-model="event"
@@ -53,6 +57,8 @@
               id="channel-code"
               name="channel-code"
               class="form-control"
+              @blur="$v.channel.$touch()"
+              :class="{ 'is-invalid': $v.channel.$invalid && $v.channel.$dirty, 'is-valid': !$v.channel.$invalid }"
               aria-describedby="channel-code-describe"
               type="text"
               v-model="channel"
@@ -66,12 +72,12 @@
       </div>
 
       <div class="row">
-        <div class="col-8  text-left">
+        <div class="col-8 text-left">
           <blockquote>tracking link format follows: event-channel-alias</blockquote>
         </div>
       </div>
 
-      <div class="row">
+      <div class="row mb-3">
         <div class="col-auto">
           <div class="card">
             <div class="card-header">Social Presets</div>
@@ -83,67 +89,34 @@
                 <em>?WT.mc_id=twitter-social-myalias</em>
               </p>
               <p class="socialLinks">
-                <a
-                  href="#"
-                  v-on:click.prevent
-
-                  class="twitter"
-                  title="Twitter"
-                >
+                <a href="#" v-on:click.prevent class="twitter" title="Twitter">
                   <font-awesome-icon :icon="['fab', 'twitter-square']" @click="twitter"/>
                 </a>
-                <a
-                  href="#"
-                  v-on:click.prevent
-
-                  class="linkedin"
-                  title="LinkedIn"
-                >
+                <a href="#" v-on:click.prevent class="linkedin" title="LinkedIn">
                   <font-awesome-icon :icon="['fab', 'linkedin']" @click="linkedin"/>
                 </a>
-                <a
-                  href="#"
-                  v-on:click.prevent
-
-                  class="reddit"
-                  title="Reddit"
-                >
+                <a href="#" v-on:click.prevent class="reddit" title="Reddit">
                   <font-awesome-icon :icon="['fab', 'reddit-square']" @click="reddit"/>
                 </a>
-                <a
-                  href="#"
-                  v-on:click.prevent
-
-                  class="facebook"
-                  title="Facebook"
-                >
+                <a href="#" v-on:click.prevent class="facebook" title="Facebook">
                   <font-awesome-icon
                     :icon="['fab', 'facebook-square']"
-                    :style="{ color: '#3b5998' }" @click="facebook"
+                    :style="{ color: '#3b5998' }"
+                    @click="facebook"
                   />
                 </a>
-                <a
-                  href="#"
-                  v-on:click.prevent
-
-                  class="stackoverflow"
-                  title="Stack Overflow"
-                >
+                <a href="#" v-on:click.prevent class="stackoverflow" title="Stack Overflow">
                   <font-awesome-icon
                     :icon="['fab', 'stack-overflow']"
-                    :style="{ color: '#f48024' }" @click="stackoverflow"
+                    :style="{ color: '#f48024' }"
+                    @click="stackoverflow"
                   />
                 </a>
-                <a
-                  href="#"
-                  v-on:click.prevent
-
-                  class="hackernews"
-                  title="Hacker News"
-                >
+                <a href="#" v-on:click.prevent class="hackernews" title="Hacker News">
                   <font-awesome-icon
                     :icon="['fab', 'hacker-news-square']"
-                    :style="{ color: '#ff6600' }" @click="hackernews"
+                    :style="{ color: '#ff6600' }"
+                    @click="hackernews"
                   />
                 </a>
               </p>
@@ -162,24 +135,20 @@
                 <em>?WT.mc_id=azuremedium-blog-myalias</em>
               </p>
               <p class="socialLinks">
-                <a
-                  href="#"
-                  v-on:click.prevent
-
-                  class="azuremedium"
-                  title="Azure Medium Blog"
-                >
-                  <font-awesome-icon :icon="['fab', 'medium']" :style="{ color: '#336699' }" @click="azuremedium"/>
+                <a href="#" v-on:click.prevent class="azuremedium" title="Azure Medium Blog">
+                  <font-awesome-icon
+                    :icon="['fab', 'medium']"
+                    :style="{ color: '#336699' }"
+                    @click="azuremedium"
+                  />
                 </a>
 
-                <a
-                  href="#"
-                  v-on:click.prevent
-
-                  class="medium"
-                  title="Medium Blog"
-                >
-                  <font-awesome-icon :icon="['fab', 'medium']" :style="{ color: '#000000' }" @click="medium"/>
+                <a href="#" v-on:click.prevent class="medium" title="Medium Blog">
+                  <font-awesome-icon
+                    :icon="['fab', 'medium']"
+                    :style="{ color: '#000000' }"
+                    @click="medium"
+                  />
                 </a>
               </p>
             </div>
@@ -197,22 +166,20 @@
                 <b>event</b>.
               </p>
               <p class="socialLinks">
-                <a
-                  href="#"
-                  v-on:click.prevent
-                  class="youtube"
-                  title="YouTube"
-                >
-                  <font-awesome-icon :icon="['fab', 'youtube-square']" :style="{ color: 'red' }" @click="youtube"/>
+                <a href="#" v-on:click.prevent class="youtube" title="YouTube">
+                  <font-awesome-icon
+                    :icon="['fab', 'youtube-square']"
+                    :style="{ color: 'red' }"
+                    @click="youtube"
+                  />
                 </a>
 
-                <a
-                  href="#"
-                  v-on:click.prevent
-                  class="github"
-                  title="github"
-                >
-                  <font-awesome-icon :icon="['fab', 'github']" :style="{ color: '#000000' }" @click="github"/>
+                <a href="#" v-on:click.prevent class="github" title="github">
+                  <font-awesome-icon
+                    :icon="['fab', 'github']"
+                    :style="{ color: '#000000' }"
+                    @click="github"
+                  />
                 </a>
               </p>
             </div>
@@ -220,22 +187,32 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-auto text-right">
-          <a v-clipboard:copy="longLink" v-clipboard:success="handleSuccess">
-            <font-awesome-icon icon="copy"/>
-          </a>
-        </div>
-        <div class="col-auto text-left">{{ longLink }}</div>
-      </div>
+      <div class="row" v-show="shortLink">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header bg-primary font-weight-bold text-white">Links</div>
+            <div class="card-body">
+              <h5 class="card-title">Copy your generated links</h5>
+              <div class="row">
+                <div class="col-sm-12 mb-3">
+                  <a v-clipboard:copy="longLink" v-clipboard:success="handleSuccess">
+                    <font-awesome-icon icon="copy"/>
+                    <span class="d.inline-block ml-2">{{ longLink }}</span>
+                  </a>
+                </div>
+              </div>
 
-      <div class="row">
-        <div class="col-auto text-right">
-          <a v-clipboard:copy="shortLink" v-clipboard:success="handleSuccess">
-            <font-awesome-icon icon="copy"/>
-          </a>
+              <div class="row">
+                <div class="col-sm-12">
+                  <a v-clipboard:copy="shortLink" v-clipboard:success="handleSuccess">
+                    <font-awesome-icon icon="copy"/>
+                    <span class="d.inline-block ml-2">{{ shortLink }}</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-auto text-left">{{ shortLink }}</div>
       </div>
     </div>
   </div>
@@ -246,13 +223,22 @@
 import storage from "../modules/storage";
 import service from "../modules/services";
 import tracking from "../modules/tracking";
+import { required, helpers } from "vuelidate/lib/validators";
+
+/* eslint-disable */
+const customURL = helpers.regex(
+  "customURL",
+  /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/
+);
+
+/* eslint-enable */
 
 export default {
   name: "LinkShare",
   data() {
     return {
       copied: "",
-      event: "social",
+      event: "",
       channel: "",
       urlToShare: "",
       longLink: "",
@@ -262,6 +248,18 @@ export default {
       shortUsername: "",
       alias: ""
     };
+  },
+  validations: {
+    urlToShare: {
+      required,
+      customURL
+    },
+    event: {
+      required
+    },
+    channel: {
+      required
+    }
   },
   mounted() {
     this.getAlias();
@@ -311,20 +309,12 @@ export default {
 
       const short = { apiKey: this.shortApiKey, username: this.shortUsername };
 
-      if (
-        this.shortenerProvider &&
-        this.shortenerProvider !== "none" &&
-        this.shortenerProvider === "bit.ly"
-      ) {
+      if (this.shortenerProvider && this.shortenerProvider === "bit.ly") {
         service.bitly.shorten(this.longLink, short).then(response => {
           this.shortLink = response;
         });
       }
-      if (
-        this.shortenerProvider &&
-        this.shortenerProvider !== "none" &&
-        this.shortenerProvider === "cda.ms"
-      ) {
+      if (this.shortenerProvider && this.shortenerProvider === "cda.ms") {
         service.cda.shorten(this.longLink).then(response => {
           this.shortLink = response;
         });

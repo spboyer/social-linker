@@ -26,6 +26,12 @@ const tracking = {
     config.domains = domains;
     let shouldAddTrackingInfo = false;
     if (baseUrl) {
+
+      var re = new RegExp("^(http|https)://", "i");
+      if (!re.test(baseUrl)) {
+        baseUrl = `https://${baseUrl}`;
+      }
+
       const uri = new URL(baseUrl);
       for (let i = 0; i < config.domains.length; i++) {
         let domain = config.domains[i];
