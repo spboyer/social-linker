@@ -345,7 +345,7 @@ export default {
       }
     },
     addTracking(event, channel) {
-      this.shortLink = "";
+      this.shortLink = "[Not Generated]";
       this.longLink = tracking.addTracking(
         this.urlToShare,
         event,
