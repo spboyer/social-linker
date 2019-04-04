@@ -74,7 +74,7 @@
         </div>
 
         <div class="col-2">
-          <button type="button" class="btn btn-primary" v-on:click="create">Create Link</button>
+          <button type="button" class="btn btn-primary" :disabled="$v.$invalid" v-on:click="create">Create Link</button>
         </div>
       </div>
 
