@@ -1,10 +1,17 @@
 <template>
   <div>
     <div class="container-fluid">
+      <div class="row" v-show="showConfigurationError">
+        <div class="col alert alert-danger">
+          <strong>Shortener Configuration Missing</strong>
+          Please go to the
+          <router-link to="/settings">Settings</router-link>&nbsp;view to configure the missing settings
+        </div>
+      </div>
+
       <div class="row">
-        <div class="col-md-6 text-left">
-          <h2>Link to share</h2>
-          <div class="border-top my-3"></div>
+        <div class="col-md-8 text-left">
+          <h2 class="border-bottom my-3">Link to share</h2>
         </div>
       </div>
 
@@ -246,7 +253,8 @@ export default {
       shortenerProvider: "",
       shortApiKey: "",
       shortUsername: "",
-      alias: ""
+      alias: "",
+      showConfigurationError: false
     };
   },
   validations: {
@@ -300,6 +308,10 @@ export default {
         .then(result => (this.shortenerProvider = result));
     },
     create() {
+      if (!this.alias || !this.shortenerProvider) {
+        this.showConfigurationError = true;
+        return;
+      }
       this.longLink = tracking.addTracking(
         this.urlToShare,
         this.event,
