@@ -3,7 +3,9 @@
     <div id="nav">
       <Nav/>
     </div>
-    <router-view/>
+     <keep-alive include="home">
+      <router-view/>
+     </keep-alive>
   </div>
 </template>
 
