@@ -46,6 +46,7 @@
             v-on:change="setShortenerProvider"
             v-model="shortenerProvider"
           >
+            <option>none</option>
             <option>bit.ly</option>
             <option>cda.ms</option>
           </select>
