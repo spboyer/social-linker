@@ -74,7 +74,12 @@
         </div>
 
         <div class="col-2">
-          <button type="button" class="btn btn-primary" :disabled="$v.$invalid" v-on:click="create">Create Link</button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            :disabled="$v.$invalid"
+            v-on:click="create"
+          >Create Link</button>
         </div>
       </div>
 
@@ -93,7 +98,7 @@
                 Channel is set to
                 <b>social</b> for the associated platform.
                 <br>i.e.
-                <em>?WT.mc_id=twitter-social-myalias</em>
+                <em>?WT.mc_id=event-social-myalias</em>
               </p>
               <p class="socialLinks">
                 <a href="#" v-on:click.prevent class="twitter" title="Twitter">
@@ -272,13 +277,12 @@ export default {
   mounted() {},
   methods: {
     async reloadSettings() {
-      await this.getAlias();
-      await this.getShortUsername();
-      await this.getShortApiKey();
-      await this.getShortenerProvider();
-    },
-    onCopy(e) {
-      alert(`You just copied:  ${e.text}`);
+      await Promise.all([
+        this.getAlias(),
+        this.getShortUsername(),
+        this.getShortApiKey(),
+        this.getShortenerProvider()
+      ]);
     },
     handleSuccess() {
       this.$toasted.show("Copied to clipboard", {
@@ -339,30 +343,6 @@ export default {
         });
       }
     },
-    twitter() {
-      this.addTracking("twitter", "social");
-
-      const short = { apiKey: this.shortApiKey, username: this.shortUsername };
-
-      if (
-        this.shortenerProvider &&
-        this.shortenerProvider !== "none" &&
-        this.shortenerProvider === "bit.ly"
-      ) {
-        service.bitly.shorten(this.longLink, short).then(response => {
-          this.shortLink = response;
-        });
-      }
-      if (
-        this.shortenerProvider &&
-        this.shortenerProvider !== "none" &&
-        this.shortenerProvider === "cda.ms"
-      ) {
-        service.cda.shorten(this.longLink).then(response => {
-          this.shortLink = response;
-        });
-      }
-    },
     addTracking(event, channel) {
       this.shortLink = "";
       this.longLink = tracking.addTracking(
@@ -371,6 +351,9 @@ export default {
         channel,
         this.alias
       );
+    },
+    twitter() {
+      this.addTracking("twitter", "social");
     },
     linkedin() {
       this.addTracking("linkedin", "social");
