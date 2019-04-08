@@ -11,7 +11,7 @@ pool:
 
 variables:
   imageName: 'social-linker:$(build.buildId)'
-  dockerId: 
+  dockerId: 'shayne'
 
 steps:
 - script: docker build -f Dockerfile -t $(imageName) .
