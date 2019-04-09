@@ -291,6 +291,7 @@ export default {
         duration: 2000
       });
     },
+    /* eslint-disable */
     getAlias() {
       return storage.getters
         .alias()
@@ -314,6 +315,7 @@ export default {
         .shortenerProvider()
         .then(result => (this.shortenerProvider = result));
     },
+    /* eslint-enable */
     async create() {
       await this.reloadSettings();
 
