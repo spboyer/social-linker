@@ -346,37 +346,39 @@ export default {
       }
     },
     addTracking(event, channel) {
-      this.shortLink = "";
-      this.longLink = tracking.addTracking(
-        this.urlToShare,
-        event,
-        channel,
-        this.alias
-      );
+      this.reloadSettings().then(() => {
+        this.shortLink = "";
+        this.longLink = tracking.addTracking(
+          this.urlToShare,
+          event,
+          channel,
+          this.alias
+        );
+      });
     },
     twitter() {
-      this.addTracking("twitter", "social");
+      this.addTracking("social", "twitter");
     },
     linkedin() {
-      this.addTracking("linkedin", "social");
+      this.addTracking("social", "linkedin");
     },
     reddit() {
-      this.addTracking("reddit", "social");
+      this.addTracking("social", "reddit");
     },
     facebook() {
-      this.addTracking("facebook", "social");
+      this.addTracking("social", "facebook");
     },
     stackoverflow() {
-      this.addTracking("stackoverflow", "social");
+      this.addTracking("social", "stackoverflow");
     },
     hackernews() {
-      this.addTracking("hackernews", "social");
+      this.addTracking("social", "hackernews")
     },
     azuremedium() {
-      this.addTracking("azuremedium", "blog");
+      this.addTracking("blog", "azuremedium");
     },
     medium() {
-      this.addTracking("medium", "blog");
+      this.addTracking("blog", "medium");
     },
     youtube() {
       this.addTracking(this.event, "youtube");
