@@ -12,6 +12,7 @@ pool:
 variables:
   imageName: 'social-linker:$(build.buildId)'
   dockerId: 'shayne'
+  latest: 'social-linker:latest'
 
 steps:
 - script: docker build -f Dockerfile -t $(imageName) .
@@ -20,5 +21,6 @@ steps:
 - script: |
     docker build -t $(dockerId).azurecr.io/$(imageName) .
     docker login -u $(dockerId) -p $(dockerPassword) $(dockerId).azurecr.io
+    docket tag $(dockerId).azurecr.io/$(imageName) $(dockerId)/azurecr.io/$(latest)
     docker push $(dockerId).azurecr.io/$(imageName)
   displayName: 'pushing image to azurecr'
