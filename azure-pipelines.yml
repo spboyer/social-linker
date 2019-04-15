@@ -21,7 +21,7 @@ steps:
 - script: |
     docker build -t $(dockerId).azurecr.io/$(imageName) .
     docker login -u $(dockerId) -p $(dockerPassword) $(dockerId).azurecr.io
-    docket tag $(dockerId).azurecr.io/$(imageName) $(dockerId)/azurecr.io/$(latest)
+    docker tag $(dockerId).azurecr.io/$(imageName) $(dockerId)/azurecr.io/$(latest)
     docker push $(dockerId).azurecr.io/$(imageName)
     docker push $(dockerId)/azurecr.io/$(latest)
     
