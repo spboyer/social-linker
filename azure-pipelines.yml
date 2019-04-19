@@ -21,8 +21,11 @@ steps:
 - script: |
     docker build -t $(dockerId).azurecr.io/$(imageName) .
     docker login -u $(dockerId) -p $(dockerPassword) $(dockerId).azurecr.io
-    docker tag $(dockerId).azurecr.io/$(imageName) $(dockerId)/azurecr.io/$(latest)
     docker push $(dockerId).azurecr.io/$(imageName)
-    docker push $(dockerId)/azurecr.io/$(latest)
-    
   displayName: 'pushing image to azurecr'
+
+- task: AzureWebAppContainer@1
+  inputs:
+    azureSubscription: 'Azure-shboyer'
+    appName: 'social-linker'
+    imageName: '$(dockerId).azurecr.io/$(imageName)'
