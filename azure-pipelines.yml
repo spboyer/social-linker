@@ -23,7 +23,7 @@ steps:
     script: 'docker build -f Dockerfile -t $(imageName) .'
 
 - task: Bash@3 
-  condition: and(succeeded())
+  condition: and(succeeded)
   inputs:
     script: |
       docker build -t $(dockerId).azurecr.io/$(imageName) .
@@ -32,7 +32,7 @@ steps:
   displayName: 'pushing image to azurecr'
 
 - task: AzureWebAppContainer@1
-  condition: and(succeeded())
+  condition: and(succeeded)
   inputs:
     azureSubscription: 'Azure-shboyer'
     appName: 'social-linker'
