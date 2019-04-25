@@ -5,6 +5,7 @@
 
 trigger:
 - master
+- greenkeeper/* 
 
 pool:
   vmImage: 'Ubuntu-16.04'
@@ -15,16 +16,23 @@ variables:
   latest: 'social-linker:latest'
 
 steps:
-- script: docker build -f Dockerfile -t $(imageName) .
-  displayName: 'docker build'
 
-- script: |
-    docker build -t $(dockerId).azurecr.io/$(imageName) .
-    docker login -u $(dockerId) -p $(dockerPassword) $(dockerId).azurecr.io
-    docker push $(dockerId).azurecr.io/$(imageName)
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'docker build -f Dockerfile -t $(imageName) .'
+
+- task: Bash@3 
+  condition: and(succeeded(), 'refs/heads/master')
+  inputs:
+    script: |
+      docker build -t $(dockerId).azurecr.io/$(imageName) .
+      docker login -u $(dockerId) -p $(dockerPassword) $(dockerId).azurecr.io
+      docker push $(dockerId).azurecr.io/$(imageName)
   displayName: 'pushing image to azurecr'
 
 - task: AzureWebAppContainer@1
+  condition: and(succeeded(), 'refs/heads/master')
   inputs:
     azureSubscription: 'Azure-shboyer'
     appName: 'social-linker'
