@@ -162,6 +162,14 @@
                     @click="medium"
                   />
                 </a>
+
+                <a href="#" v-on:click.prevent class="devto" title="dev.to Blog">
+                  <font-awesome-icon
+                    :icon="['fab', 'dev']"
+                    :style="{ color: '#000000' }"
+                    @click="devto"
+                  />
+                </a>
               </p>
             </div>
           </div>
@@ -375,16 +383,19 @@ export default {
       this.addTracking("social", "hackernews")
     },
     azuremedium() {
-      this.addTracking("blog", "azuremedium");
+      this.addTracking("azuremedium", "blog");
     },
     medium() {
-      this.addTracking("blog", "medium");
+      this.addTracking("medium", "blog");
     },
     youtube() {
       this.addTracking(this.event, "youtube");
     },
     github() {
       this.addTracking(this.event, "github");
+    },
+    devto() {
+      this.addTracking("devto", "blog");
     }
   }
 };
