@@ -1,0 +1,23 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "btholt",
+      "name": "Brian Holt",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/999523?v=4",
+      "profile": "http://brianholt.dev",
+      "contributions": [
+        "review"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "social-linker",
+  "projectOwner": "spboyer",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
