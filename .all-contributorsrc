@@ -6,6 +6,13 @@
   "commit": false,
   "contributors": [
     {
+      "login": "btholt",
+      "name": "Brian Holt",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/999523?v=4",
+      "profile": "http://brianholt.dev",
+      "contributions": [
+        "review"
+      ],
       "login": "cecilphillip",
       "name": "Cecil Phillip",
       "avatar_url": "https://avatars1.githubusercontent.com/u/350882?v=4",
