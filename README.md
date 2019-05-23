@@ -13,7 +13,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-<table><tr><td align="center"><a href="http://johnpapa.net"><img src="https://avatars2.githubusercontent.com/u/1202528?v=4" width="100px;" alt="John Papa"/><br /><sub><b>John Papa</b></sub></a><br /><a href="https://github.com/spboyer/social-linker/commits?author=johnpapa" title="Code">💻</a></td></tr></table>
+<table><tr><td align="center"><a href="http://johnpapa.net"><img src="https://avatars2.githubusercontent.com/u/1202528?v=4" width="100px;" alt="John Papa"/><br /><sub><b>John Papa</b></sub></a><br /><a href="https://github.com/spboyer/social-linker/commits?author=johnpapa" title="Code">💻</a> <a href="#maintenance-johnpapa" title="Maintenance">🚧</a></td></tr></table>
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
