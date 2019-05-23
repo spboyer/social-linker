@@ -1,0 +1,23 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "cecilphillip",
+      "name": "Cecil Phillip",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/350882?v=4",
+      "profile": "http://cecilphillip.com",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "social-linker",
+  "projectOwner": "spboyer",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
