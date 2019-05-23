@@ -35,6 +35,15 @@
         "code",
         "ideas"
       ]
+    },
+    {
+      "login": "cecilphillip",
+      "name": "Cecil Phillip",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/350882?v=4",
+      "profile": "http://cecilphillip.com",
+      "contributions": [
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7,
