@@ -1,0 +1,23 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "MaximRouiller",
+      "name": "Maxime Rouiller",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/209384?v=4",
+      "profile": "https://blog.maximerouiller.com",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "social-linker",
+  "projectOwner": "spboyer",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
