@@ -15,6 +15,12 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore -->
 <table><tr><td align="center"><a href="http://brianholt.dev"><img src="https://avatars1.githubusercontent.com/u/999523?v=4" width="100px;" alt="Brian Holt"/><br /><sub><b>Brian Holt</b></sub></a><br /><a href="#review-btholt" title="Reviewed Pull Requests">👀</a></td></tr></table>
 
+<table><tr><td align="center"><a href="http://cecilphillip.com"><img src="https://avatars1.githubusercontent.com/u/350882?v=4" width="100px;" alt="Cecil Phillip"/><br /><sub><b>Cecil Phillip</b></sub></a><br /><a href="https://github.com/spboyer/social-linker/commits?author=cecilphillip" title="Code">💻</a></td></tr></table>
+
+<table><tr><td align="center"><a href="http://johnpapa.net"><img src="https://avatars2.githubusercontent.com/u/1202528?v=4" width="100px;" alt="John Papa"/><br /><sub><b>John Papa</b></sub></a><br /><a href="https://github.com/spboyer/social-linker/commits?author=johnpapa" title="Code">💻</a> <a href="#maintenance-johnpapa" title="Maintenance">🚧</a></td></tr></table>
+
+<table><tr><td align="center"><a href="https://blog.maximerouiller.com"><img src="https://avatars1.githubusercontent.com/u/209384?v=4" width="100px;" alt="Maxime Rouiller"/><br /><sub><b>Maxime Rouiller</b></sub></a><br /><a href="https://github.com/spboyer/social-linker/commits?author=MaximRouiller" title="Code">💻</a> <a href="#ideas-MaximRouiller" title="Ideas, Planning, & Feedback">🤔</a></td></tr></table>
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
