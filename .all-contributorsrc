@@ -6,6 +6,13 @@
   "commit": false,
   "contributors": [
     {
+      "login": "cecilphillip",
+      "name": "Cecil Phillip",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/350882?v=4",
+      "profile": "http://cecilphillip.com",
+      "contributions": [
+        "code"
+      ],
       "login": "johnpapa",
       "name": "John Papa",
       "avatar_url": "https://avatars2.githubusercontent.com/u/1202528?v=4",
