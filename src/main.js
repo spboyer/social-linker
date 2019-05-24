@@ -11,6 +11,13 @@ import VueClipboard from 'vue-clipboard2';
 import Toasted from 'vue-toasted';
 import Vuelidate from 'vuelidate';
 
+import VueAppInsights from 'vue-application-insights'
+
+Vue.use(VueAppInsights, {
+  id: 'd8d11b38-ae34-4d38-b5cd-dab76f992722',
+  router
+})
+
 Vue.use(Vuetify, {
   theme: {
     primary: '#3399ff',

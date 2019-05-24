@@ -11,6 +11,7 @@
     "axios": "^0.18.0",
     "localforage": "^1.7.3",
     "vue": "^2.6.10",
+    "vue-application-insights": "^1.0.6",
     "vue-clipboard2": "^0.3.0",
     "vue-router": "^3.0.6",
     "vue-toasted": "^1.1.27",
