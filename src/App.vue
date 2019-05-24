@@ -7,12 +7,14 @@
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn color="white" to="/" flat>Home</v-btn>
         <v-btn color="white" to="/settings" flat>Settings</v-btn>
+        <v-btn color="white" target="_blank" href="https://github.com/spboyer/social-linker" flat>GitHub</v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <v-navigation-drawer v-model="drawer" class="primary" disable-resize-watcher app light>
       <v-layout column flex>
         <v-btn color="white" to="/" flat>Home</v-btn>
         <v-btn color="white" to="/settings" flat>Settings</v-btn>
+        <v-btn color="white" target="_blank" href="https://github.com/spboyer/social-linker" flat>GitHub</v-btn>
       </v-layout>
     </v-navigation-drawer>
     <router-view></router-view>
