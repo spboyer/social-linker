@@ -24,6 +24,7 @@
         </v-layout>
       </v-flex>
     </v-card>
+
     <v-card class="card">
       <v-card-title primary-title>
         <h1 class="headline">Share a Microsoft.com Link</h1>
@@ -31,6 +32,12 @@
       <v-card-title>
         <h3 class="grey--text">Tracking link format follows: event-channel-alias</h3>
       </v-card-title>
+      <v-flex md6 offset-md3>
+        <v-alert type="warning" v-show="!alias">
+          Beware, you have not yet set your Microsoft alias, needed to build this link. Go to
+          <router-link to="/settings">Settings</router-link>&nbsp;to set your alias.
+        </v-alert>
+      </v-flex>
       <v-form>
         <v-container>
           <v-flex md6 offset-md3>
@@ -413,6 +420,9 @@ export default {
     devto() {
       this.addTracking("devto", "blog");
     }
+  },
+  created() {
+    this.getAlias();
   }
 };
 </script>
