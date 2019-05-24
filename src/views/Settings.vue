@@ -1,92 +1,78 @@
 <template>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-6 text-left">
-        <h2>Settings</h2>
-        <div class="border-top my-3"></div>
-      </div>
-    </div>
-    <!-- alias -->
-    <div class="row">
-      <div class="col-auto">
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="alias-describe">Microsoft Alias</span>
-          </div>
-          <input
-            id="alias"
-            name="alias"
-            class="form-control"
-            aria-describedby="alias-describe"
-            type="text"
-            v-model="alias"
-            v-on:input="setAlias"
-          >
-        </div>
-      </div>
-    </div>
-    <!-- shortner stuff -->
-    <div class="row">
-      <div class="col-6 text-left">
-        <h3>Url Shortner Options</h3>
-        <div class="border-top my-3"></div>
-      </div>
-    </div>
+  <div>
+    <v-card xs10 offset-xs1 class="card">
+      <v-card-title primary-title>
+        <h1 class="headline">My Settings</h1>
+      </v-card-title>
+      <v-card-title>
+        <h3 class="grey--text">Your Microsoft alias</h3>
+      </v-card-title>
+      <v-flex md6 offset-md3>
+        <v-alert outline :value="true" type="success" v-show="alias">Alias successfully set!</v-alert>
+      </v-flex>
+      <v-form>
+        <v-container>
+          <v-layout row wrap>
+            <v-flex xs12>
+              <v-text-field
+                id="alias"
+                name="alias"
+                label="Microsoft alias"
+                prepend-icon="email"
+                aria-describedby="alias-describe"
+                type="text"
+                v-model="alias"
+                v-on:input="setAlias"
+              ></v-text-field>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-form>
+    </v-card>
 
-    <!-- select provider -->
-    <div class="row">
-      <div class="col-2">
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <label class="input-group-text" for="shortener">Provider</label>
-          </div>
-          <select
-            class="custom-select"
-            id="shortener"
-            v-on:change="setShortenerProvider"
-            v-model="shortenerProvider"
-          >
-            <option>none</option>
-            <option>bit.ly</option>
-            <option>cda.ms</option>
-          </select>
-        </div>
-      </div>
+    <v-card xs10 offset-xs1 class="card">
+      <v-form>
+        <v-card-title primary-title>
+          <h1 class="headline">Url Shortener Options</h1>
+        </v-card-title>
+        <v-card-title>
+          <h3 class="grey--text">Choose which Url shortener to use</h3>
+        </v-card-title>
+        <v-container fluid grid-list-sm>
+          <v-layout row wrap>
+            <v-flex xs12 md4 offset-md1>
+              <v-overflow-btn
+                v-on:change="setShortenerProvider"
+                v-model="shortenerProvider"
+                :items="urldropdown"
+                label="None"
+                target="#urldropdown"
+              ></v-overflow-btn>
+            </v-flex>
+            <v-flex xs12 md4 offset-md1 v-if="hideConfig('bit.ly')">
+              <v-text-field
+                id="bitly-api-key"
+                name="bitly-api-key"
+                aria-describedby="bitly-api-key-describe"
+                type="password"
+                label="bit.ly API Key"
+                v-model="shortApiKey"
+                v-on:input="setShortApiKey"
+              ></v-text-field>
 
-      <!-- provider settings -->
-      <!-- bit.ly -->
-      <div class="col-3" v-if="hideConfig('bit.ly')">
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="bitly-api-key-describe">API Key</span>
-          </div>
-          <input
-            id="bitly-api-key"
-            name="bitly-api-key"
-            class="form-control"
-            aria-describedby="bitly-api-key-describe"
-            type="password"
-            v-model="shortApiKey"
-            v-on:input="setShortApiKey"
-          >
-        </div>
-
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="bitly-username-describe">Username</span>
-          </div>
-          <input
-            id="bitly-username"
-            name="bitly-username"
-            class="form-control"
-            aria-describedby="bitly-username-describe"
-            type="text"
-            v-model="shortUsername"
-            v-on:input="setShortUsername"
-          >
-        </div>
-      </div>
-    </div>
+              <v-text-field
+                id="bitly-username"
+                name="bitly-username"
+                aria-describedby="bitly-username-describe"
+                label="bit.ly Username"
+                v-model="shortUsername"
+                v-on:input="setShortUsername"
+              ></v-text-field>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-form>
+    </v-card>
   </div>
 </template>
 
@@ -101,7 +87,8 @@ export default {
       alias: "",
       shortenerProvider: "",
       shortApiKey: "",
-      shortUsername: ""
+      shortUsername: "",
+      urldropdown: ["bit.ly", "cda.ms"]
     };
   },
   mounted() {
@@ -140,6 +127,7 @@ export default {
     },
     setShortenerProvider() {
       storage.actions.saveShortProvider(this.shortenerProvider);
+      console.log(this.shortenerProvider);
     },
     setShortApiKey() {
       storage.actions.saveShortApiKey(this.shortApiKey);
