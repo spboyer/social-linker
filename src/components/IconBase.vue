@@ -43,5 +43,6 @@ svg {
   display: inline-block;
   vertical-align: baseline;
   margin-bottom: -2px; /* yes, I'm that particular about formatting */
+  padding: 5px;
 }
 </style>

@@ -106,47 +106,47 @@
             </v-card-title>
             <v-container fluid grid-list-sm>
               <v-layout row wrap>
-                <v-flex xs4>
-                  <a href="#" v-on:click.prevent>
+                <v-flex xs6>
+                  <v-btn class="btn-icon" href="#" @click="twitter">
                     <icon-base icon-name="twitter">
-                      <icon-twitter @click="twitter"/>
+                      <icon-twitter/>
                     </icon-base>
-                  </a>
+                  </v-btn>
                 </v-flex>
-                <v-flex xs4>
-                  <a href="#" v-on:click.prevent>
+                <v-flex xs6>
+                  <v-btn class="btn-icon" href="#" @click="linkedin">
                     <icon-base icon-name="linkedin">
                       <icon-linked-in @click="linkedin"/>
                     </icon-base>
-                  </a>
+                  </v-btn>
                 </v-flex>
-                <v-flex xs4>
-                  <a href="#" v-on:click.prevent>
+                <v-flex xs6>
+                  <v-btn class="btn-icon" href="#" @click="reddit">
                     <icon-base icon-name="reddit">
                       <icon-reddit @click="reddit"/>
                     </icon-base>
-                  </a>
+                  </v-btn>
                 </v-flex>
-                <v-flex xs4>
-                  <a href="#" v-on:click.prevent>
+                <v-flex xs6>
+                  <v-btn class="btn-icon" href="#" @click="facebook">
                     <icon-base icon-name="facebook">
                       <icon-facebook @click="facebook"/>
                     </icon-base>
-                  </a>
+                  </v-btn>
                 </v-flex>
-                <v-flex md4>
-                  <a href="#" v-on:click.prevent>
+                <v-flex xs6>
+                  <v-btn class="btn-icon" href="#" @click="stackoverflow">
                     <icon-base icon-name="stackoverflow">
                       <icon-stack-overflow @click="stackoverflow"/>
                     </icon-base>
-                  </a>
+                  </v-btn>
                 </v-flex>
-                <v-flex>
-                  <a href="#" v-on:click.prevent>
+                <v-flex xs6>
+                  <v-btn class="btn-icon" href="#" @click="hackernews">
                     <icon-base icon-name="hackernews">
                       <icon-hacker-news @click="hackernews"/>
                     </icon-base>
-                  </a>
+                  </v-btn>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -167,29 +167,29 @@
             <v-container fluid grid-list-sm>
               <v-layout row wrap>
                 <v-flex md4>
-                  <a href="#" v-on:click.prevent>
-                    <p style="color:#326699">
+                  <v-btn class="btn-icon" href="#" @click="azuremedium">
+                    <span style="color:#326699">
                       <icon-base icon-name="azuremedium">
                         <icon-medium @click="azuremedium"/>
                       </icon-base>
-                    </p>
-                  </a>
+                    </span>
+                  </v-btn>
                 </v-flex>
                 <v-flex md4>
-                  <a href="#" v-on:click.prevent>
-                    <p style="color:#000">
+                  <v-btn class="btn-icon" href="#" @click="medium">
+                    <span style="color:#000">
                       <icon-base icon-name="medium">
                         <icon-medium @click="medium"/>
                       </icon-base>
-                    </p>
-                  </a>
+                    </span>
+                  </v-btn>
                 </v-flex>
                 <v-flex md4>
-                  <a href="#" v-on:click.prevent>
+                  <v-btn class="btn-icon" href="#" @click="devto">
                     <icon-base icon-name="devto">
                       <icon-dev-to @click="devto"/>
                     </icon-base>
-                  </a>
+                  </v-btn>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -210,18 +210,18 @@
             <v-container fluid grid-list-sm>
               <v-layout row wrap>
                 <v-flex md6>
-                  <a href="#" v-on:click.prevent>
+                  <v-btn class="btn-icon" href="#" @click="youtube">
                     <icon-base icon-name="youtube">
                       <icon-you-tube @click="youtube"/>
                     </icon-base>
-                  </a>
+                  </v-btn>
                 </v-flex>
                 <v-flex md6>
-                  <a href="#" v-on:click.prevent>
+                  <v-btn class="btn-icon" href="#" @click="github">
                     <icon-base icon-name="github">
                       <icon-git-hub @click="github"/>
                     </icon-base>
-                  </a>
+                  </v-btn>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -376,7 +376,6 @@ export default {
       }
     },
     addTracking(event, channel) {
-      alert(event, channel);
       this.reloadSettings().then(() => {
         this.shortLink = "";
         this.longLink = tracking.addTracking(
@@ -431,5 +430,9 @@ export default {
 <style scoped>
 .link-card {
   margin: 5px;
+}
+.btn-icon {
+  width: 50px;
+  height: 50px;
 }
 </style>
