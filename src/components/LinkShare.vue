@@ -191,6 +191,15 @@
                     </icon-base>
                   </v-btn>
                 </v-flex>
+
+                 <v-flex md4>
+                  <v-btn class="btn-icon" href="#" @click="microsoft">
+                    <icon-base icon-name="ITOpsTalk">
+                      <icon-microsoft @click="microsoft"/>
+                    </icon-base>
+                  </v-btn>
+                </v-flex>
+
               </v-layout>
             </v-container>
           </v-card>
@@ -238,6 +247,8 @@ import storage from "../modules/storage";
 import service from "../modules/services";
 import tracking from "../modules/tracking";
 
+import IconMicrosoft from "./icons/IconMicrosoft.vue";
+
 import IconTwitter from "./icons/IconTwitter.vue";
 import IconLinkedIn from "./icons/IconLinkedIn.vue";
 import IconReddit from "./icons/IconReddit.vue";
@@ -275,7 +286,8 @@ export default {
     IconDevTo,
     IconYouTube,
     IconGitHub,
-    IconCopy
+    IconCopy,
+    IconMicrosoft
   },
   data() {
     return {
@@ -418,6 +430,9 @@ export default {
     },
     devto() {
       this.addTracking("devto", "blog");
+    },
+    microsoft() {
+      this.addTracking("ITOpsTalk", "blog");
     }
   },
   created() {
