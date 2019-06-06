@@ -88,7 +88,7 @@ export default {
       shortenerProvider: "",
       shortApiKey: "",
       shortUsername: "",
-      urldropdown: ["bit.ly", "cda.ms"]
+      urldropdown: ["none","bit.ly", "cda.ms"]
     };
   },
   mounted() {
