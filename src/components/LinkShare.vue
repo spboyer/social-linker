@@ -432,7 +432,7 @@ export default {
       this.addTracking("devto", "blog");
     },
     microsoft() {
-      this.addTracking("ITOpsTalk", "blog");
+      this.addTracking("itopstalk", "blog");
     }
   },
   created() {
