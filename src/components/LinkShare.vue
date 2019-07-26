@@ -9,14 +9,14 @@
           <v-card-actions>
             <v-btn flat v-clipboard:copy="longLink" v-clipboard:success="handleSuccess">
               <icon-base icon-name="copy" width="30px" height="30px" v-if="longLink">
-                <icon-copy/>
+                <icon-copy />
               </icon-base>
               {{ longLink }}
             </v-btn>
 
             <v-btn flat v-clipboard:copy="shortLink" v-clipboard:success="handleSuccess">
               <icon-base icon-name="copy" width="30px" height="30px" v-if="shortLink">
-                <icon-copy/>
+                <icon-copy />
               </icon-base>
               {{ shortLink }}
             </v-btn>
@@ -30,7 +30,7 @@
         <h1 class="headline">Share a Microsoft.com Link</h1>
       </v-card-title>
       <v-card-title>
-        <h3 class="grey--text">Tracking link format follows: event-channel-alias</h3>
+        <h3 class="grey--text">Tracking link format follows: tactic-channel-alias</h3>
       </v-card-title>
       <v-flex md6 offset-md3>
         <v-alert type="warning" v-show="!alias">
@@ -100,7 +100,7 @@
                 <span>
                   Channel is set to
                   <b>social</b> for the associated platform.
-                  i.e. ?WT.mc_id=event-social-myalias
+                  i.e. ?WT.mc_id=tactic-social-myalias
                 </span>
               </div>
             </v-card-title>
@@ -109,42 +109,42 @@
                 <v-flex xs6>
                   <v-btn class="btn-icon" href="#" @click="twitter">
                     <icon-base icon-name="twitter">
-                      <icon-twitter/>
+                      <icon-twitter />
                     </icon-base>
                   </v-btn>
                 </v-flex>
                 <v-flex xs6>
                   <v-btn class="btn-icon" href="#" @click="linkedin">
                     <icon-base icon-name="linkedin">
-                      <icon-linked-in @click="linkedin"/>
+                      <icon-linked-in @click="linkedin" />
                     </icon-base>
                   </v-btn>
                 </v-flex>
                 <v-flex xs6>
                   <v-btn class="btn-icon" href="#" @click="reddit">
                     <icon-base icon-name="reddit">
-                      <icon-reddit @click="reddit"/>
+                      <icon-reddit @click="reddit" />
                     </icon-base>
                   </v-btn>
                 </v-flex>
                 <v-flex xs6>
                   <v-btn class="btn-icon" href="#" @click="facebook">
                     <icon-base icon-name="facebook">
-                      <icon-facebook @click="facebook"/>
+                      <icon-facebook @click="facebook" />
                     </icon-base>
                   </v-btn>
                 </v-flex>
                 <v-flex xs6>
                   <v-btn class="btn-icon" href="#" @click="stackoverflow">
                     <icon-base icon-name="stackoverflow">
-                      <icon-stack-overflow @click="stackoverflow"/>
+                      <icon-stack-overflow @click="stackoverflow" />
                     </icon-base>
                   </v-btn>
                 </v-flex>
                 <v-flex xs6>
                   <v-btn class="btn-icon" href="#" @click="hackernews">
                     <icon-base icon-name="hackernews">
-                      <icon-hacker-news @click="hackernews"/>
+                      <icon-hacker-news @click="hackernews" />
                     </icon-base>
                   </v-btn>
                 </v-flex>
@@ -170,7 +170,7 @@
                   <v-btn class="btn-icon" href="#" @click="azuremedium">
                     <span style="color:#326699">
                       <icon-base icon-name="azuremedium">
-                        <icon-medium @click="azuremedium"/>
+                        <icon-medium @click="azuremedium" />
                       </icon-base>
                     </span>
                   </v-btn>
@@ -179,7 +179,7 @@
                   <v-btn class="btn-icon" href="#" @click="medium">
                     <span style="color:#000">
                       <icon-base icon-name="medium">
-                        <icon-medium @click="medium"/>
+                        <icon-medium @click="medium" />
                       </icon-base>
                     </span>
                   </v-btn>
@@ -187,19 +187,18 @@
                 <v-flex md4>
                   <v-btn class="btn-icon" href="#" @click="devto">
                     <icon-base icon-name="devto">
-                      <icon-dev-to @click="devto"/>
+                      <icon-dev-to @click="devto" />
                     </icon-base>
                   </v-btn>
                 </v-flex>
 
-                 <v-flex md4>
+                <v-flex md4>
                   <v-btn class="btn-icon" href="#" @click="microsoft">
                     <icon-base icon-name="ITOpsTalk">
-                      <icon-microsoft @click="microsoft"/>
+                      <icon-microsoft @click="microsoft" />
                     </icon-base>
                   </v-btn>
                 </v-flex>
-
               </v-layout>
             </v-container>
           </v-card>
@@ -221,14 +220,14 @@
                 <v-flex md6>
                   <v-btn class="btn-icon" href="#" @click="youtube">
                     <icon-base icon-name="youtube">
-                      <icon-you-tube @click="youtube"/>
+                      <icon-you-tube @click="youtube" />
                     </icon-base>
                   </v-btn>
                 </v-flex>
                 <v-flex md6>
                   <v-btn class="btn-icon" href="#" @click="github">
                     <icon-base icon-name="github">
-                      <icon-git-hub @click="github"/>
+                      <icon-git-hub @click="github" />
                     </icon-base>
                   </v-btn>
                 </v-flex>
