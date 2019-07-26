@@ -30,7 +30,7 @@
         <h1 class="headline">Share a Microsoft.com Link</h1>
       </v-card-title>
       <v-card-title>
-        <h3 class="grey--text">Tracking link format follows: tactic-channel-alias</h3>
+        <h3 class="grey--text">Tracking link format follows: tactic-category-alias</h3>
       </v-card-title>
       <v-flex md6 offset-md3>
         <v-alert type="warning" v-show="!alias">
