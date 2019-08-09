@@ -66,7 +66,7 @@
                 :class="{ 'is-invalid': $v.event.$invalid && $v.event.$dirty, 'is-valid': !$v.event.$invalid }"
                 aria-describedby="event-code-describe"
                 v-model="event"
-                label="Event"
+                label="Tactic"
                 prepend-icon="event"
               ></v-text-field>
             </v-flex>
@@ -78,7 +78,7 @@
                 :class="{ 'is-invalid': $v.channel.$invalid && $v.channel.$dirty, 'is-valid': !$v.channel.$invalid }"
                 aria-describedby="channel-code-describe"
                 v-model="channel"
-                label="Channel"
+                label="Category"
                 prepend-icon="input"
               ></v-text-field>
             </v-flex>
