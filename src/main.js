@@ -11,10 +11,17 @@ import VueClipboard from 'vue-clipboard2';
 import Toasted from 'vue-toasted';
 import Vuelidate from 'vuelidate';
 
+import { ApplicationInsights } from '@microsoft/applicationinsights-web'
 import VueAppInsights from 'vue-application-insights'
 
+const appInsights = new ApplicationInsights({config: {
+  instrumentationKey: 'd8d11b38-ae34-4d38-b5cd-dab76f992722',
+  maxBatchInterval: 2000
+}});
+appInsights.loadAppInsights();
+
 Vue.use(VueAppInsights, {
-  id: 'd8d11b38-ae34-4d38-b5cd-dab76f992722',
+  appInsights: appInsights,  
   router
 })
 
