@@ -387,6 +387,7 @@ export default {
       }
     },
     addTracking(event, channel) {
+      let ai = this.$appInsights;
       this.reloadSettings().then(() => {
         this.shortLink = "";
         this.longLink = tracking.addTracking(
@@ -395,6 +396,7 @@ export default {
           channel,
           this.alias
         );
+        ai.trackEvent({name: 'addTracking', properties: {event: event, channel: channel, alias: this.alias, url: this.urlToShare}});
       });
     },
     twitter() {
