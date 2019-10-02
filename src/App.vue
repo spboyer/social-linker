@@ -1,45 +1,28 @@
 <template>
   <v-app class="blue lighten-5">
-    <v-toolbar color="primary">
-      <v-toolbar-side-icon class="hidden-md-and-up" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title color="white">Social Linker</v-toolbar-title>
+    <v-app-bar absolute color="primary">
+      <v-toolbar-title>
+        <v-btn x-large text color="white" to="/">Social Linker</v-btn>
+      </v-toolbar-title>
+
+      <div class="flex-grow-1"></div>
+
       <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn color="white" to="/" flat>Home</v-btn>
-        <v-btn color="white" to="/settings" flat>Settings</v-btn>
-        <v-btn color="white" target="_blank" href="https://github.com/spboyer/social-linker" flat>GitHub</v-btn>
+
+      <v-toolbar-items>
+        <v-btn color="white" to="/settings" text>Settings</v-btn>
       </v-toolbar-items>
-    </v-toolbar>
-    <v-navigation-drawer v-model="drawer" class="primary" disable-resize-watcher app light>
-      <v-layout column flex>
-        <v-btn color="white" to="/" flat>Home</v-btn>
-        <v-btn color="white" to="/settings" flat>Settings</v-btn>
-        <v-btn color="white" target="_blank" href="https://github.com/spboyer/social-linker" flat>GitHub</v-btn>
-      </v-layout>
-    </v-navigation-drawer>
+    </v-app-bar>
+
     <router-view></router-view>
     <v-footer fixed height="auto" color="primary" center>
       <v-layout align-center justify-center>
-        <v-btn color="white" flat round to="/credits">Credits</v-btn>
+        <v-btn color="white" text to="/credits">Credits</v-btn>
       </v-layout>
     </v-footer>
   </v-app>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      drawer: false
-    };
-  },
-  methods: {
-    toggleDrawer(event) {
-      this.showDrawer = event;
-    }
-  }
-};
-</script>
 
 
 <style>
@@ -52,6 +35,7 @@ export default {
 }
 .wrapper {
   padding: 10px;
+  margin-top: 60px;
 }
 
 .v-toolbar__title {
