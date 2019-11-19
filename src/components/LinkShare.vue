@@ -7,15 +7,25 @@
         </v-card-title>
         <v-layout flex row>
           <v-card-actions>
-            <v-btn flat v-clipboard:copy="longLink" v-clipboard:success="handleSuccess">
-              <icon-base icon-name="copy" width="30px" height="30px" v-if="longLink">
+            <v-btn
+              text
+              v-clipboard:copy="longLink"
+              v-if="longLink"
+              v-clipboard:success="handleSuccess"
+            >
+              <icon-base icon-name="copy" width="30px" height="30px">
                 <icon-copy />
               </icon-base>
               {{ longLink }}
             </v-btn>
 
-            <v-btn flat v-clipboard:copy="shortLink" v-clipboard:success="handleSuccess">
-              <icon-base icon-name="copy" width="30px" height="30px" v-if="shortLink">
+            <v-btn
+              text
+              v-clipboard:copy="shortLink"
+              v-if="shortLink"
+              v-clipboard:success="handleSuccess"
+            >
+              <icon-base icon-name="copy" width="30px" height="30px">
                 <icon-copy />
               </icon-base>
               {{ shortLink }}
@@ -24,11 +34,8 @@
         </v-layout>
       </v-flex>
     </v-card>
-
+    <h1>Share a Microsoft.com Link</h1>
     <v-card class="card">
-      <v-card-title primary-title>
-        <h1 class="headline">Share a Microsoft.com Link</h1>
-      </v-card-title>
       <v-card-title>
         <h3 class="grey--text">Tracking link format follows: tactic-category-alias</h3>
       </v-card-title>
@@ -41,7 +48,7 @@
       <v-form>
         <v-container>
           <v-flex md6 offset-md3>
-            <v-alert outline :value="true" type="error" v-show="showConfigurationError">
+            <v-alert outlined :value="true" type="error" v-show="showConfigurationError">
               Shortener Configuration Missing. Please go to
               <router-link to="/settings">Settings</router-link>&nbsp;to configure the missing settings
             </v-alert>
@@ -107,42 +114,42 @@
             <v-container fluid grid-list-sm>
               <v-layout row wrap>
                 <v-flex xs6>
-                  <v-btn class="btn-icon" href="#" @click="twitter">
+                  <v-btn class="btn-icon" large href="#" @click="twitter">
                     <icon-base icon-name="twitter">
                       <icon-twitter />
                     </icon-base>
                   </v-btn>
                 </v-flex>
                 <v-flex xs6>
-                  <v-btn class="btn-icon" href="#" @click="linkedin">
+                  <v-btn class="btn-icon" large href="#" @click="linkedin">
                     <icon-base icon-name="linkedin">
                       <icon-linked-in @click="linkedin" />
                     </icon-base>
                   </v-btn>
                 </v-flex>
                 <v-flex xs6>
-                  <v-btn class="btn-icon" href="#" @click="reddit">
+                  <v-btn class="btn-icon" large href="#" @click="reddit">
                     <icon-base icon-name="reddit">
                       <icon-reddit @click="reddit" />
                     </icon-base>
                   </v-btn>
                 </v-flex>
                 <v-flex xs6>
-                  <v-btn class="btn-icon" href="#" @click="facebook">
+                  <v-btn class="btn-icon" large href="#" @click="facebook">
                     <icon-base icon-name="facebook">
                       <icon-facebook @click="facebook" />
                     </icon-base>
                   </v-btn>
                 </v-flex>
                 <v-flex xs6>
-                  <v-btn class="btn-icon" href="#" @click="stackoverflow">
+                  <v-btn class="btn-icon" large href="#" @click="stackoverflow">
                     <icon-base icon-name="stackoverflow">
                       <icon-stack-overflow @click="stackoverflow" />
                     </icon-base>
                   </v-btn>
                 </v-flex>
                 <v-flex xs6>
-                  <v-btn class="btn-icon" href="#" @click="hackernews">
+                  <v-btn class="btn-icon" large href="#" @click="hackernews">
                     <icon-base icon-name="hackernews">
                       <icon-hacker-news @click="hackernews" />
                     </icon-base>
@@ -167,7 +174,7 @@
             <v-container fluid grid-list-sm>
               <v-layout row wrap>
                 <v-flex md4>
-                  <v-btn class="btn-icon" href="#" @click="azuremedium">
+                  <v-btn large class="btn-icon" href="#" @click="azuremedium">
                     <span style="color:#326699">
                       <icon-base icon-name="azuremedium">
                         <icon-medium @click="azuremedium" />
@@ -176,7 +183,7 @@
                   </v-btn>
                 </v-flex>
                 <v-flex md4>
-                  <v-btn class="btn-icon" href="#" @click="medium">
+                  <v-btn class="btn-icon" large href="#" @click="medium">
                     <span style="color:#000">
                       <icon-base icon-name="medium">
                         <icon-medium @click="medium" />
@@ -185,7 +192,7 @@
                   </v-btn>
                 </v-flex>
                 <v-flex md4>
-                  <v-btn class="btn-icon" href="#" @click="devto">
+                  <v-btn class="btn-icon" large href="#" @click="devto">
                     <icon-base icon-name="devto">
                       <icon-dev-to @click="devto" />
                     </icon-base>
@@ -193,7 +200,7 @@
                 </v-flex>
 
                 <v-flex md4>
-                  <v-btn class="btn-icon" href="#" @click="microsoft">
+                  <v-btn class="btn-icon" large href="#" @click="microsoft">
                     <icon-base icon-name="ITOpsTalk">
                       <icon-microsoft @click="microsoft" />
                     </icon-base>
@@ -218,14 +225,14 @@
             <v-container fluid grid-list-sm>
               <v-layout row wrap>
                 <v-flex md6>
-                  <v-btn class="btn-icon" href="#" @click="youtube">
+                  <v-btn class="btn-icon" large href="#" @click="youtube">
                     <icon-base icon-name="youtube">
                       <icon-you-tube @click="youtube" />
                     </icon-base>
                   </v-btn>
                 </v-flex>
                 <v-flex md6>
-                  <v-btn class="btn-icon" href="#" @click="github">
+                  <v-btn class="btn-icon" large href="#" @click="github">
                     <icon-base icon-name="github">
                       <icon-git-hub @click="github" />
                     </icon-base>
@@ -396,7 +403,15 @@ export default {
           channel,
           this.alias
         );
-        ai.trackEvent({name: 'addTracking', properties: {event: event, channel: channel, alias: this.alias, url: this.urlToShare}});
+        ai.trackEvent({
+          name: "addTracking",
+          properties: {
+            event: event,
+            channel: channel,
+            alias: this.alias,
+            url: this.urlToShare
+          }
+        });
       });
     },
     twitter() {
@@ -448,7 +463,10 @@ export default {
   margin: 5px;
 }
 .btn-icon {
-  width: 50px;
-  height: 50px;
+  padding: 10px;
+  margin: 10px;
+}
+.icon {
+  margin: 10px;
 }
 </style>

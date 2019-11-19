@@ -1,14 +1,12 @@
 <template>
-  <div>
+  <div class="wrapper">
+    <h1>My Settings</h1>
     <v-card xs10 offset-xs1 class="card">
-      <v-card-title primary-title>
-        <h1 class="headline">My Settings</h1>
-      </v-card-title>
       <v-card-title>
         <h3 class="grey--text">Your Microsoft alias</h3>
       </v-card-title>
       <v-flex md6 offset-md3>
-        <v-alert outline :value="true" type="success" v-show="alias">Alias successfully set!</v-alert>
+        <v-alert outlined :value="true" type="success" v-show="alias">Alias successfully set!</v-alert>
       </v-flex>
       <v-form>
         <v-container>
@@ -88,7 +86,7 @@ export default {
       shortenerProvider: "",
       shortApiKey: "",
       shortUsername: "",
-      urldropdown: ["none","bit.ly", "cda.ms"]
+      urldropdown: ["none", "bit.ly", "cda.ms"]
     };
   },
   mounted() {
