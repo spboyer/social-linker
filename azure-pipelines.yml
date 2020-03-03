@@ -4,8 +4,9 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- master
-- greenkeeper/* 
+# DEPRECATED 
+#- master
+#- greenkeeper/* 
 
 pool:
   vmImage: 'Ubuntu-16.04'
