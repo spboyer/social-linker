@@ -1,5 +1,5 @@
 
-# Social Linker 
+# DEPRECATED Social Linker MOVED TO [spboyer/advocate-linkers](https://github.com/spboyer/advocate-linkers)
 [![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors)
 
 
