@@ -8,7 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@microsoft/applicationinsights-web": "^2.2.4",
+    "@microsoft/applicationinsights-web": "^2.5.1",
     "axios": "^0.19.0",
     "localforage": "^1.7.3",
     "vue": "^2.6.10",
